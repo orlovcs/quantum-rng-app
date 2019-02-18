@@ -29,6 +29,7 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     TextView debug;
+    EditText firstLottoNum;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,20 +51,18 @@ public class MainActivity extends AppCompatActivity
         final EditText firstLottoNum = (EditText) findViewById(R.id.firstLottoNum);
         Button generateButon  = (Button) findViewById(R.id.generate);
 
+        debug = (TextView) findViewById(R.id.textView2);
+
         generateButon.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                firstLottoNum.setText(String.valueOf(1));
+                new RetrieveAPI().execute();
             }
         });
 
-        debug = (TextView) findViewById(R.id.textView2);
-        new RetrieveAPI().execute();
+
+
 
         //cant decode it here since its async
-
-
-
-
 
     }
 
@@ -173,7 +172,10 @@ public class MainActivity extends AppCompatActivity
                 json = new JSONObject(response);
                 JSONArray str_value = json.getJSONArray("data"); //<< get value here
 
-                debug.setText(String.valueOf(str_value.length()));
+                debug.setText(String.valueOf(str_value.get(0)));
+
+             //   firstLottoNum.setText(String.valueOf(1));
+
 
 
             } catch (JSONException e) {
