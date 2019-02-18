@@ -1,5 +1,7 @@
 package com.example.orlovcs.reaction;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -25,6 +27,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -32,6 +35,7 @@ public class MainActivity extends AppCompatActivity
     TextView debug;
     EditText firstLottoNum;
     TableRow num_table;
+    ArrayList<Integer> nums;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,9 +56,10 @@ public class MainActivity extends AppCompatActivity
 
         Button generateButon  = (Button) findViewById(R.id.generate);
 
-        firstLottoNum = (EditText) findViewById(R.id.firstLottoNum);
+        nums = new ArrayList<>();
         debug = (TextView) findViewById(R.id.textView2);
         num_table = (TableRow) findViewById(R.id.num_table);
+
 
 
 
@@ -98,6 +103,20 @@ public class MainActivity extends AppCompatActivity
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
+        }else if (id ==  R.id.action_copy){
+
+            String source = "";
+
+            for(int i=0;i<nums.size();i++){
+
+               source = source + " " + String.valueOf(nums.get(i));
+
+            }
+
+            final android.content.ClipboardManager clipboardManager = (ClipboardManager)getSystemService(CLIPBOARD_SERVICE);
+            ClipData clipData = ClipData.newPlainText("Source Text", source);
+            clipboardManager.setPrimaryClip(clipData);
+
         }
 
         return super.onOptionsItemSelected(item);
@@ -186,7 +205,10 @@ public class MainActivity extends AppCompatActivity
 
                     EditText num = (EditText) num_table.getChildAt(i);
 
-                    num.setText(String.valueOf(data));
+                    num.setText(String.valueOf(data % 49));
+
+                    nums.add(data%49);
+
                 }
 
 
