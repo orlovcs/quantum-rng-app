@@ -14,6 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TableRow;
 import android.widget.TextView;
 
 import org.json.JSONArray;
@@ -30,6 +31,7 @@ public class MainActivity extends AppCompatActivity
 
     TextView debug;
     EditText firstLottoNum;
+    TableRow num_table;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,10 +50,13 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        final EditText firstLottoNum = (EditText) findViewById(R.id.firstLottoNum);
         Button generateButon  = (Button) findViewById(R.id.generate);
 
+        firstLottoNum = (EditText) findViewById(R.id.firstLottoNum);
         debug = (TextView) findViewById(R.id.textView2);
+        num_table = (TableRow) findViewById(R.id.num_table);
+
+
 
         generateButon.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -170,11 +175,21 @@ public class MainActivity extends AppCompatActivity
             try {
 
                 json = new JSONObject(response);
-                JSONArray str_value = json.getJSONArray("data"); //<< get value here
+                JSONArray data_array = json.getJSONArray("data"); //<< get value here
 
-                debug.setText(String.valueOf(str_value.get(0)));
+                debug.setText(String.valueOf(data_array.get(0)));
 
-             //   firstLottoNum.setText(String.valueOf(1));
+                for(int i=0;i<data_array.length();i++){
+                    int data = data_array.getInt(i);
+                    debug.setText(  debug.getText() + "\n" + i + " is " + String.valueOf(data) + ". num mod 49 is " + data%49  );
+                   // firstLottoNum.setText(String.valueOf(data));
+
+                    EditText num = (EditText) num_table.getChildAt(i);
+
+                    num.setText(String.valueOf(data));
+                }
+
+
 
 
 
