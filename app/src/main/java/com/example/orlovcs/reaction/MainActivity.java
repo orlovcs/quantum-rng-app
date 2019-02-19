@@ -2,14 +2,13 @@ package com.example.orlovcs.reaction;
 
 import android.content.ClipData;
 import android.content.ClipboardManager;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -18,6 +17,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -41,7 +41,25 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.first_layout);
+
+        Button iv = findViewById(R.id.button5);
+
+        iv.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v) {
+
+                Intent intent = new Intent(v.getContext(), firstFrag.class);
+               // intent.putExtra("address", finalD);
+             //   intent.putExtra("rating", mModel.ratings[finalD]);
+                // Start activity
+                startActivity(intent);
+            }
+
+        });
+
+
+        /*
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -70,6 +88,8 @@ public class MainActivity extends AppCompatActivity
         });
 
 
+
+        */
 
 
         //cant decode it here since its async
@@ -126,22 +146,30 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
+
+        android.support.v4.app.FragmentManager fman = getSupportFragmentManager();
+
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        if (id == R.id.nav_first_layout) {
+            Toast.makeText(MainActivity.this, "My Account", Toast.LENGTH_SHORT).show();
+/*
+            fman.beginTransaction()
+                    .replace(R.id.drawer_layout
+                            , new firstFrag())
+                    .commit();
 
-        } else if (id == R.id.nav_slideshow) {
 
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
+        }else if (id == R.id.nav_second_layout){
+            fman.beginTransaction()
+                    .replace(R.id.drawer_layout
+                            , new secondFrag())
+                    .commit();
         }
 
+
+*/
+        }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
