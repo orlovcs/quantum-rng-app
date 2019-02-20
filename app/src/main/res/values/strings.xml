@@ -6,4 +6,51 @@
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
+
+    <string-array name="lottos">
+        <item>6/49</item>
+        <item>Lotto Max</item>
+        <item>El Gordo</item>
+        <item>Euro Jackpot</item>
+        <item>Euro Millions</item>
+        <item>France Loto</item>
+        <item>Kenno</item>
+        <item>Lotto</item>
+        <item>Mega Millions</item>
+        <item>Mega-Sena</item>
+        <item>Oz Lotto</item>
+        <item>Oz Powerball</item>
+        <item>Powerball</item>
+        <item>SuperEnalotto</item>
+        <item>SuperEnalotto Plus</item>
+        <item>UK Lottery</item>
+    </string-array>
+
+
+    <string-array name="dice">
+        <item>D3</item>
+        <item>D4</item>
+        <item>D5</item>
+        <item>D6</item>
+        <item>D7</item>
+        <item>D8</item>
+        <item>D9</item>
+        <item>D10</item>
+        <item>D12</item>
+        <item>D14</item>
+        <item>D20</item>
+        <item>D24</item>
+        <item>D30</item>
+        <item>D48</item>
+        <item>D50</item>
+        <item>D100</item>
+        <item>D1000</item>
+    </string-array>
+
+    <string-array name="rng">
+        <item>Integer</item>
+        <item>Binary</item>
+        <item>Floating Point</item>
+    </string-array>
+
 </resources>

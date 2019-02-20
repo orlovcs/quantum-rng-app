@@ -3,13 +3,11 @@ package com.example.orlovcs.reaction;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,14 +17,6 @@ import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity
@@ -43,12 +33,19 @@ public class MainActivity extends AppCompatActivity
 
         setContentView(R.layout.first_layout);
 
-        Button iv = findViewById(R.id.button5);
+        Button six = findViewById(R.id.menu_649);
+        Button max = findViewById(R.id.menu_max);
 
-        iv.setOnClickListener(new View.OnClickListener(){
+        Button custom = findViewById(R.id.menu_custom);
+        Button dice = findViewById(R.id.menu_dice);
+
+        Button coin = findViewById(R.id.menu_coin);
+        Button rng = findViewById(R.id.menu_rng);
+
+        six.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v) {
 
-                Intent intent = new Intent(v.getContext(), firstFrag.class);
+                Intent intent = new Intent(v.getContext(), lottery_activity.class);
                // intent.putExtra("address", finalD);
              //   intent.putExtra("rating", mModel.ratings[finalD]);
                 // Start activity
@@ -56,6 +53,68 @@ public class MainActivity extends AppCompatActivity
             }
 
         });
+
+        max.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v) {
+
+                Intent intent = new Intent(v.getContext(), secondFrag.class);
+                // intent.putExtra("address", finalD);
+                //   intent.putExtra("rating", mModel.ratings[finalD]);
+                // Start activity
+                startActivity(intent);
+            }
+
+        });
+
+        dice.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v) {
+
+                Intent intent = new Intent(v.getContext(), lottery_activity.class);
+                // intent.putExtra("address", finalD);
+                //   intent.putExtra("rating", mModel.ratings[finalD]);
+                // Start activity
+                startActivity(intent);
+            }
+
+        });
+
+        custom.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v) {
+
+                Intent intent = new Intent(v.getContext(), customActivity.class);
+                // intent.putExtra("address", finalD);
+                //   intent.putExtra("rating", mModel.ratings[finalD]);
+                // Start activity
+                startActivity(intent);
+            }
+
+        });
+
+
+        coin.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v) {
+
+                Intent intent = new Intent(v.getContext(), lottery_activity.class);
+                // intent.putExtra("address", finalD);
+                //   intent.putExtra("rating", mModel.ratings[finalD]);
+                // Start activity
+                startActivity(intent);
+            }
+
+        });
+
+        rng.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v) {
+
+                Intent intent = new Intent(v.getContext(), secondFrag.class);
+                // intent.putExtra("address", finalD);
+                //   intent.putExtra("rating", mModel.ratings[finalD]);
+                // Start activity
+                startActivity(intent);
+            }
+
+        });
+
 
 
         /*
@@ -156,7 +215,7 @@ public class MainActivity extends AppCompatActivity
 /*
             fman.beginTransaction()
                     .replace(R.id.drawer_layout
-                            , new firstFrag())
+                            , new lottery_activity())
                     .commit();
 
 
@@ -176,80 +235,8 @@ public class MainActivity extends AppCompatActivity
     }
 
 
-    class RetrieveAPI extends AsyncTask<Void, Void, String> {
-
-        private Exception exception;
-
-        protected void onPreExecute() {
-            debug.setText("");
-        }
-
-        protected String doInBackground(Void... urls) {
-
-            try {
-                String API_URL = "https://qrng.anu.edu.au/API/jsonI.php?length=6&type=uint8";
-                URL url = new URL(API_URL);
-                HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-                try {
-                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
-                    StringBuilder stringBuilder = new StringBuilder();
-                    String line;
-                    while ((line = bufferedReader.readLine()) != null) {
-                        stringBuilder.append(line).append("\n");
-                    }
-                    bufferedReader.close();
-                    return stringBuilder.toString();
-                }
-                finally{
-                    urlConnection.disconnect();
-                }
-            }
-            catch(Exception e) {
-                Log.e("ERROR", e.getMessage(), e);
-                return null;
-            }
-        }
-        protected void onPostExecute(String response) {
-            if(response == null) {
-                response = "ERROR";
-            }
-
-            Log.i("INFO", response);
-            debug.setText(response);
-
-            // Convert String to json object
-            JSONObject json = null;
-            try {
-
-                json = new JSONObject(response);
-                JSONArray data_array = json.getJSONArray("data"); //<< get value here
-
-                debug.setText(String.valueOf(data_array.get(0)));
-
-                for(int i=0;i<data_array.length();i++){
-                    int data = data_array.getInt(i);
-                    debug.setText(  debug.getText() + "\n" + i + " is " + String.valueOf(data) + ". num mod 49 is " + data%49  );
-                   // firstLottoNum.setText(String.valueOf(data));
-
-                    EditText num = (EditText) num_table.getChildAt(i);
-
-                    num.setText(String.valueOf(data % 49));
-
-                    nums.add(data%49);
-
-                }
 
 
-
-
-
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-
-
-        }
-    }
 
 
 

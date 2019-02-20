@@ -19,7 +19,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".firstFrag"></activity>
+        <activity android:name=".lottery_activity"></activity>
     </application>
     <uses-permission android:name="android.permission.INTERNET" />
 
