@@ -8,22 +8,24 @@
     <string name="action_settings">Settings</string>
 
     <string-array name="lottos">
+
         <item>6/49</item>
+        <item>SuperEnalotto</item>
+        <item>SuperEnalotto Plus</item>
+        <item>UK Lottery</item>
         <item>Lotto Max</item>
-        <item>El Gordo</item>
         <item>Euro Jackpot</item>
+        <item>Powerball</item>
         <item>Euro Millions</item>
+        <item>Mega-Sena</item>
+        <item>Oz Lotto</item>
+        <item>Oz Powerball</item>
         <item>France Loto</item>
         <item>Kenno</item>
         <item>Lotto</item>
         <item>Mega Millions</item>
-        <item>Mega-Sena</item>
-        <item>Oz Lotto</item>
-        <item>Oz Powerball</item>
-        <item>Powerball</item>
-        <item>SuperEnalotto</item>
-        <item>SuperEnalotto Plus</item>
-        <item>UK Lottery</item>
+        <item>El Gordo</item>
+
     </string-array>
 
 
