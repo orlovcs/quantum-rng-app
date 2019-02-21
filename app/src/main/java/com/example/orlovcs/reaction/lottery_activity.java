@@ -75,7 +75,7 @@ public class lottery_activity extends AppCompatActivity implements OnItemClickLi
 
     }
 
-    
+
     @Override
     public void onPointerCaptureChanged(boolean hasCapture) {
 
@@ -102,7 +102,6 @@ public class lottery_activity extends AppCompatActivity implements OnItemClickLi
             Integer bonuses = 0;
             Integer bonusMax = 0;
             boolean bonus = false;
-
 
             /*
 
