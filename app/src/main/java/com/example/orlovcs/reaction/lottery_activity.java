@@ -1,10 +1,14 @@
 package com.example.orlovcs.reaction;
 
 import android.app.ProgressDialog;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -33,8 +37,10 @@ public class lottery_activity extends AppCompatActivity implements OnItemClickLi
     TextView debug;
     EditText firstLottoNum;
     TextView textOutput;
+    String currOutput;
     ArrayList<Integer> nums;
     Integer lotteryOptionSelected = 0;
+    Boolean api = true;
 
 
     @Override
@@ -44,7 +50,7 @@ public class lottery_activity extends AppCompatActivity implements OnItemClickLi
         // Set Content View
         setContentView(R.layout.lottery_layout);
 
-
+        currOutput = "";
         Button generateButon  = (Button) findViewById(R.id.generate);
 
         nums = new ArrayList<>();
@@ -57,17 +63,85 @@ public class lottery_activity extends AppCompatActivity implements OnItemClickLi
         lottery_spinner.setAdapter(adapter);
         lottery_spinner.setOnItemSelectedListener(this);
 
-
-
         generateButon.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                textOutput.setText("");
-                new RetrieveAPI().execute();
+
+                if (api == false){
+                    Toast.makeText(getApplicationContext(),
+                            "API Disabled\nManually Generated",
+                            Toast.LENGTH_SHORT).show();
+                    manualGeneration();
+                    setString();
+                }else{
+                    textOutput.setText("");
+                    currOutput = "";
+                    new RetrieveAPI().execute();
+                }
+
+
 
             }
         });
 
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_api) {
+
+            if (api == true){
+                api = false;
+                Toast.makeText(getApplicationContext(),
+                        "API Disabled",
+                        Toast.LENGTH_SHORT).show();
+                item.setChecked(false);
+            }else{
+                api = true;
+                Toast.makeText(getApplicationContext(),
+                        "API Enabled",
+                        Toast.LENGTH_SHORT).show();
+                item.setChecked(true);
+            }
+
+        }else if (id == R.id.action_copy){
+
+            if (currOutput != null && currOutput != "") {
+
+                String source = "";
+
+              //  for (int i = 0; i < nums.size(); i++) {
+
+            //        source = source + " " + String.valueOf(nums.get(i));
+
+          //      }
+
+                final android.content.ClipboardManager clipboardManager = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
+                ClipData clipData = ClipData.newPlainText("Source Text", currOutput);
+                clipboardManager.setPrimaryClip(clipData);
+
+                Toast.makeText(getApplicationContext(),
+                        "Copied!",
+                        Toast.LENGTH_SHORT).show();
+
+            }
+
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -281,6 +355,7 @@ public class lottery_activity extends AppCompatActivity implements OnItemClickLi
             }
 
             textOutput.setText(output);
+            currOutput = output;
 
         }}
 
@@ -335,31 +410,30 @@ public class lottery_activity extends AppCompatActivity implements OnItemClickLi
 
         protected String doInBackground(Void... urls) {
             try {
-                String API_URL = "https://qrng.anu.edu.au/API/jsonI.php?length=40&type=uint16";
-                URL url = new URL(API_URL);
-                HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-                try {
-                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
-                    StringBuilder stringBuilder = new StringBuilder();
-                    String line;
-                    while ((line = bufferedReader.readLine()) != null) {
-                        stringBuilder.append(line).append("\n");
+                    String API_URL = "https://qrng.anu.edu.au/API/jsonI.php?length=40&type=uint16";
+                    URL url = new URL(API_URL);
+                    HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+                    try {
+                        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
+                        StringBuilder stringBuilder = new StringBuilder();
+                        String line;
+                        while ((line = bufferedReader.readLine()) != null) {
+                            stringBuilder.append(line).append("\n");
+                        }
+                        bufferedReader.close();
+                        return stringBuilder.toString();
+                    } finally {
+                        urlConnection.disconnect();
                     }
-                    bufferedReader.close();
-                    return stringBuilder.toString();
-                }
-                finally{
-                    urlConnection.disconnect();
-                }
-            }
-            catch(Exception e) {
+
+            } catch (Exception e) {
                 Log.e("ERROR", e.getMessage(), e);
                 return null;
             }
         }
         protected void onPostExecute(String response) {
 
-            if(response == null) {
+            if (response == null) {
                 response = "ERROR";
 
                 Toast.makeText(getApplicationContext(),
@@ -368,7 +442,7 @@ public class lottery_activity extends AppCompatActivity implements OnItemClickLi
                 manualGeneration();
                 setString();
 
-            }else {
+            } else {
 
                 Log.i("INFO", response);
                 debug.setText(response);

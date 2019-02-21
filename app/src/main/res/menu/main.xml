@@ -5,8 +5,9 @@
         android:id="@+id/action_copy"
         android:title="Copy" />
     <item
-        android:id="@+id/action_settings"
-        android:orderInCategory="100"
-        android:title="@string/action_settings"
-        app:showAsAction="never" />
+        android:id="@+id/action_api"
+        android:checkable="true"
+        android:checked="true"
+        android:enabled="true"
+        android:title="Enable API" />
 </menu>
