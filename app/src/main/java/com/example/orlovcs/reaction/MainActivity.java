@@ -106,7 +106,7 @@ public class MainActivity extends AppCompatActivity
         rng.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v) {
 
-                Intent intent = new Intent(v.getContext(), secondFrag.class);
+                Intent intent = new Intent(v.getContext(), rng_activity.class);
                 // intent.putExtra("address", finalD);
                 //   intent.putExtra("rating", mModel.ratings[finalD]);
                 // Start activity

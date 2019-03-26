@@ -241,9 +241,12 @@ public class dice_activity extends AppCompatActivity implements OnItemClickListe
                     break;
             }
 
-            String output = "";
+            String output = "D"+max + "x"+rollOptionSelected;
 
             List<Integer> digitNums = nums.subList(0,21);
+
+
+            Integer sum = 0;
 
 
 
@@ -269,14 +272,28 @@ public class dice_activity extends AppCompatActivity implements OnItemClickListe
                     if (i == 0){
                         output = String.valueOf(v);
                     }else{
-                        output = output + "-" + v;
+                        output = output + "+" + v;
                     }
+                    sum+=v;
                 }
 
             }
 
-            textOutput.setText(output);
-            currOutput = output;
+            if (rollOptionSelected == 0){
+
+                textOutput.setText(output);
+                currOutput = output;
+
+            }else{
+                String tmp = output;
+                output = "D"+ max + "x" + (rollOptionSelected+1) + ": " ;
+                output += tmp;
+                output +=" = "+sum;
+                textOutput.setText(output);
+                currOutput = output;
+            }
+
+
 
         }}
 

@@ -31,7 +31,7 @@ import java.util.List;
 import java.util.Random;
 
 
-public class coin_activity extends AppCompatActivity implements OnItemClickListener, AdapterView.OnItemSelectedListener {
+public class rng_activity extends AppCompatActivity implements OnItemClickListener, AdapterView.OnItemSelectedListener {
 
     TextView debug;
     TextView textOutput;
@@ -40,7 +40,7 @@ public class coin_activity extends AppCompatActivity implements OnItemClickListe
     Integer coinAmountSelected = 0;
     Integer weight = 50;
     Boolean api = true;
-Integer weightcalc;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -157,7 +157,7 @@ Integer weightcalc;
         {
 
 
-            switch (i) {
+            switch (weight) {
                 case 0:
                     weight = 5;
                     break;
@@ -192,9 +192,6 @@ Integer weightcalc;
                     weight = 50;
             }
 
-             weightcalc = (65535 * weight)/100;
-
-
         }
 
     }
@@ -222,13 +219,9 @@ Integer weightcalc;
 
                 for(int i = 0; i < coinAmountSelected+1;i++){
 
+                    Integer v = digitNums.get(i)%(2);
 
-
-                    Integer v = digitNums.get(i);
-               //     debug.setText("weight is: " +weight + "cal: " + weightcalc + "v is " + v);
-
-
-                    if (v  >   weightcalc){
+                    if (v == 0){
                         heads++;
                         if (i == 0){
                             output = "H";
@@ -291,7 +284,7 @@ Integer weightcalc;
         protected void onPreExecute() {
             debug.setText("");
             super.onPreExecute();
-            progDailog = new ProgressDialog(coin_activity.this);
+            progDailog = new ProgressDialog(rng_activity.this);
             progDailog.setMessage("Loading...");
             progDailog.setIndeterminate(false);
             progDailog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
