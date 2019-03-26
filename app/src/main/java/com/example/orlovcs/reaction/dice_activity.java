@@ -14,7 +14,6 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,14 +31,14 @@ import java.util.List;
 import java.util.Random;
 
 
-public class lottery_activity extends AppCompatActivity implements OnItemClickListener, AdapterView.OnItemSelectedListener {
+public class dice_activity extends AppCompatActivity implements OnItemClickListener, AdapterView.OnItemSelectedListener {
 
     TextView debug;
-    EditText firstLottoNum;
     TextView textOutput;
     String currOutput;
     ArrayList<Integer> nums;
-    Integer lotteryOptionSelected = 0;
+    Integer rollOptionSelected = 0;
+    Integer dieOptionSelected = 0;
     Boolean api = true;
 
 
@@ -48,20 +47,28 @@ public class lottery_activity extends AppCompatActivity implements OnItemClickLi
         super.onCreate(savedInstanceState);
 
         // Set Content View
-        setContentView(R.layout.lottery_layout);
+        setContentView(R.layout.dice_layout);
 
         currOutput = "";
-        Button generateButon  = (Button) findViewById(R.id.generate);
+
+        Button generateButon = (Button) findViewById(R.id.generate_die);
 
         nums = new ArrayList<>();
-        debug = (TextView) findViewById(R.id.textView2);
-        textOutput = findViewById(R.id.textOutput);
-        Spinner lottery_spinner = findViewById(R.id.lottery_spinner);
+        debug = (TextView) findViewById(R.id.textView5);
+        textOutput = findViewById(R.id.dice_output);
 
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,R.array.lottos,android.R.layout.simple_spinner_item);
+        Spinner roll_spinner = findViewById(R.id.roll_spinner);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,R.array.rolls,android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        lottery_spinner.setAdapter(adapter);
-        lottery_spinner.setOnItemSelectedListener(this);
+        roll_spinner.setAdapter(adapter);
+        roll_spinner.setOnItemSelectedListener(this);
+
+
+        Spinner die_spinner = findViewById(R.id.die_spinner);
+        ArrayAdapter<CharSequence> adapter_2 = ArrayAdapter.createFromResource(this,R.array.die,android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        die_spinner.setAdapter(adapter_2);
+        die_spinner.setOnItemSelectedListener(this);
 
         generateButon.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -116,7 +123,7 @@ public class lottery_activity extends AppCompatActivity implements OnItemClickLi
 
             if (currOutput != null && currOutput != "") {
 
-                final android.content.ClipboardManager clipboardManager = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
+                final ClipboardManager clipboardManager = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
                 ClipData clipData = ClipData.newPlainText("Source Text", currOutput);
                 clipboardManager.setPrimaryClip(clipData);
 
@@ -142,7 +149,25 @@ public class lottery_activity extends AppCompatActivity implements OnItemClickLi
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
-        lotteryOptionSelected = i;
+        if(adapterView.getId() == R.id.roll_spinner)
+        {
+            rollOptionSelected = i;
+            Toast.makeText(getApplicationContext(),
+                    "rolls: " + i,
+                    Toast.LENGTH_SHORT).show();
+        }  else  if(adapterView.getId() == R.id.die_spinner)
+        {
+            dieOptionSelected = i;
+            Toast.makeText(getApplicationContext(),
+                    "die: " + i,
+                    Toast.LENGTH_SHORT).show();
+        }
+
+
+
+
+
+
 
     }
 
@@ -155,197 +180,91 @@ public class lottery_activity extends AppCompatActivity implements OnItemClickLi
 
         if (!nums.isEmpty() && nums!=null) {
 
+            Integer sides = 0;
             Integer max = 0;
-            Integer digits = 0;
-            Integer bonuses = 0;
-            Integer bonusMax = 0;
-            boolean bonus = false;
-
-            /*
-
-        <item>6/49</item>
-        <item>SuperEnalotto</item>
-        <item>Superlotto Plus</item>
-        <item>UK Lottery</item>
-
-        <item>Lotto Max</item>
-
-        <item>Euro Jackpot</item>
-        <item>Powerball</item>
-        <item>Euro Millions</item>
-        <item>Mega-Sena</item>
-        <item>Oz Lotto</item>
-        <item>Oz Powerball</item>
-        <item>France Loto</item>
-        <item>Kenno</item>
-        <item>Lotto</item>
-        <item>Mega Millions</item>
-        <item>El Gordo</item>
 
 
-             */
-
-            switch (lotteryOptionSelected){
+            switch (dieOptionSelected){
                 case 0: //649
-                    max = 49;
-                    digits = 6;
-                    bonuses = 1;
-                    bonusMax = 49;
-                    bonus = true;
-
+                    max = 3;
                     break;
-                case 1: //superenaloto
-                    max = 90;
-                    digits = 6;
-                    bonuses = 2;
-                    bonusMax = 90;
-                    bonus = true;
+                case 1:
+                    max = 4;
                     break;
-                case 2: //superlallo plus
-                    max = 47;
-                    digits = 5;
-                    bonuses = 1;
-                    bonusMax = 27;
-                    bonus = true;
+                case 2:
+                    max = 5;
                     break;
-                case 3://uk lotto
-                    max = 59;
-                    digits = 6;
-                    bonuses = 1;
-                    bonusMax = 59;
-                    bonus = true;
+                case 3:
+                    max = 6;
                     break;
-                case 4: //max
-                    max = 49;
-                    digits = 7;
-                    bonuses = 1;
-                    bonusMax = 49;
-                    bonus = true;
+                case 4:
+                    max = 7;
                     break;
-                case 5: //euro jackpot
+                case 5:
+                    max = 8;
+                    break;
+                case 6:
+                    max = 9;
+                    break;
+                case 7:
+                    max = 10;
+                    break;
+                case 8:
+                    max = 12;
+                    break;
+                case 9:
+                    max = 14;
+                    break;
+                case 10:
+                    max = 20;
+                    break;
+                case 11:
+                    max = 24;
+                    break;
+                case 12:
+                    max = 30;
+                    break;
+                case 13:
+                    max = 48;
+                    break;
+                case 14:
                     max = 50;
-                    digits = 5;
-                    bonuses = 2;
-                    bonusMax = 10;
-                    bonus = true;
                     break;
-                case 6: //powerball
-                    max = 69;
-                    digits = 5;
-                    bonuses = 1;
-                    bonusMax = 26;
-                    bonus = true;
+                case 15:
+                    max = 100;
                     break;
-                case 7: //euro millions
-                    max = 50;
-                    digits = 5;
-                    bonuses = 2;
-                    bonusMax = 12;
-                    bonus = true;
+                case 16:
+                    max = 1000;
                     break;
-                case 8://mega-sena
-                    max = 60;
-                    digits = 6;
-                    bonuses = 2;
-                    bonusMax = 0;
-                    bonus = false;
-                    break;
-                case 9://oz lotto
-                    max = 45;
-                    digits = 7;
-                    bonuses = 0;
-                    bonusMax = 0;
-                    bonus = false;
-                    break;
-                case 10://oz powerball
-                    max = 35;
-                    digits = 7;
-                    bonuses = 1;
-                    bonusMax = 20;
-                    bonus = true;
-                    break;
-                case 11://french lotto
-                    max = 49;
-                    digits = 5;
-                    bonuses = 1;
-                    bonusMax = 10;
-                    bonus = true;
-                    break;
-                case 12://kenno
-                    max = 70;
-                    digits = 20;
-                    bonuses = 0;
-                    bonusMax = 0;
-                    bonus = false;
-                    break;
-                case 13://lotto america
-                    max = 52;
-                    digits = 5;
-                    bonuses = 1;
-                    bonusMax = 10;
-                    bonus = true;
-                    break;
-                case 14: //mega millions
-                    max = 70;
-                    digits = 5;
-                    bonuses = 1;
-                    bonusMax = 25;
-                    bonus = true;
-                    break;
-                case 15://el gordo
-                    max = 99999;
-                    digits = 1;
-                    bonuses = 0;
-                    bonusMax = 0;
-                    bonus = false;
-                    break;
-
                 default:
-                    max = 49;
-                    digits = 6;
-                    bonuses = 1;
-                    bonusMax = 49;
-                    bonus = true;
+                    max = 3;
                     break;
             }
 
             String output = "";
 
-            List<Integer> digitNums = nums.subList(0,20);
-            List<Integer> bonusNums = nums.subList(21,39);
+            List<Integer> digitNums = nums.subList(0,21);
 
 
 
 
 
-            if (lotteryOptionSelected == 15){
+            if (dieOptionSelected == -1){ //d1k
 
                 Integer el = digitNums.get(0);
                 debug.setText(String.valueOf(el));
                 if (el < 99999){
                     el = el * 2;
                 }
-
                 output = String.valueOf(el%(99999+1));
 
             }else{
 
-                ArrayList<Integer> noClone = new ArrayList<Integer>(); //removes clones
 
 
-                for(int i = 0; i < digits;i++){
+                for(int i = 0; i < rollOptionSelected+1;i++){
 
-                    Integer v = digitNums.get(i)%(max+1);
-
-                    while (noClone.contains(v)){
-                        if (v < max){
-                            v++;
-                        }else {
-                            v--;
-                        }
-
-                    }
-                    noClone.add(v);
+                    Integer v = digitNums.get(i)%(max) + 1;
 
                     if (i == 0){
                         output = String.valueOf(v);
@@ -353,23 +272,7 @@ public class lottery_activity extends AppCompatActivity implements OnItemClickLi
                         output = output + "-" + v;
                     }
                 }
-                if (bonus == true){
-                for(int i = 0; i < bonuses;i++){
 
-                    Integer v = bonusNums.get(i)%(bonusMax+1);
-
-                    while (noClone.contains(v)){
-                        if (v < bonusMax){
-                            v++;
-                        }else {
-                            v--;
-                        }
-
-                    }
-                    noClone.add(v);
-
-                    output = output + "-" + "(" + v + ")";
-                }}
             }
 
             textOutput.setText(output);
@@ -418,7 +321,7 @@ public class lottery_activity extends AppCompatActivity implements OnItemClickLi
         protected void onPreExecute() {
             debug.setText("");
             super.onPreExecute();
-            progDailog = new ProgressDialog(lottery_activity.this);
+            progDailog = new ProgressDialog(dice_activity.this);
             progDailog.setMessage("Loading...");
             progDailog.setIndeterminate(false);
             progDailog.setProgressStyle(ProgressDialog.STYLE_SPINNER);

@@ -19,7 +19,27 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".lottery_activity"></activity>
+
+        <activity
+            android:label="Quantum Dice"
+            android:name=".dice_activity"
+            android:parentActivityName=".MainActivity"
+            >
+        </activity>
+
+        <activity
+            android:label="Quantum Lottery"
+            android:name=".lottery_activity"
+            android:parentActivityName=".MainActivity"
+            >
+        </activity>
+
+        <activity
+            android:label="Quantum Coins"
+            android:name=".coin_activity"
+            android:parentActivityName=".MainActivity"
+            >
+        </activity>
 
         <meta-data
             android:name="preloaded_fonts"

@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity
         dice.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v) {
 
-                Intent intent = new Intent(v.getContext(), lottery_activity.class);
+                Intent intent = new Intent(v.getContext(), dice_activity.class);
                 // intent.putExtra("address", finalD);
                 //   intent.putExtra("rating", mModel.ratings[finalD]);
                 // Start activity
@@ -94,7 +94,7 @@ public class MainActivity extends AppCompatActivity
         coin.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v) {
 
-                Intent intent = new Intent(v.getContext(), lottery_activity.class);
+                Intent intent = new Intent(v.getContext(), coin_activity.class);
                 // intent.putExtra("address", finalD);
                 //   intent.putExtra("rating", mModel.ratings[finalD]);
                 // Start activity

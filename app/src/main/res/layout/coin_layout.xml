@@ -8,24 +8,25 @@
 
 
     <Button
-        android:id="@+id/generate_die"
+        android:id="@+id/generate_coin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="149dp"
         android:layout_marginEnd="149dp"
-        android:layout_marginBottom="96dp"
-        android:text="Roll"
+        android:layout_marginBottom="140dp"
+        android:text="Flip"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.47"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/textView5"
         android:layout_width="342dp"
-        android:layout_height="61dp"
+        android:layout_height="122dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="34dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginBottom="18dp"
         android:text="TextView"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -51,16 +52,7 @@
             android:orientation="vertical">
 
             <Spinner
-                android:id="@+id/roll_spinner"
-                android:layout_width="match_parent"
-                android:layout_height="39dp" />
-
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="39dp" />
-
-            <Spinner
-                android:id="@+id/die_spinner"
+                android:id="@+id/coin_spinner"
                 android:layout_width="match_parent"
                 android:layout_height="39dp" />
 
@@ -68,12 +60,13 @@
     </LinearLayout>
 
     <TextView
-        android:id="@+id/dice_output"
+        android:id="@+id/coin_output"
         android:layout_width="330dp"
-        android:layout_height="171dp"
+        android:layout_height="132dp"
         android:layout_marginStart="1dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="1dp"
+        android:layout_marginBottom="253dp"
         android:fontFamily="@font/abel"
         android:textAlignment="center"
         android:textColor="@color/colorAccent"
@@ -92,29 +85,13 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        android:text="rolls"
+        android:text="amount of coins"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.272"
-        tools:text="rolls" />
+        tools:text="amount of coins" />
 
-    <TextView
-        android:id="@+id/textView7"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:text="die type"
-        app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView6"
-        app:layout_constraintVertical_bias="0.549"
-        tools:text="die type" />
 </android.support.constraint.ConstraintLayout>
