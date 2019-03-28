@@ -41,6 +41,20 @@
             >
         </activity>
 
+        <activity
+            android:label="Quantum Password"
+            android:name=".password_activity"
+            android:parentActivityName=".MainActivity"
+            >
+        </activity>
+
+        <activity
+            android:label="About"
+            android:name=".about_activity"
+            android:parentActivityName=".MainActivity"
+            >
+        </activity>
+
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />

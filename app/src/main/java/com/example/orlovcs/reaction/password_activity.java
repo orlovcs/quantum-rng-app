@@ -26,6 +26,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
@@ -290,8 +291,8 @@ public class password_activity extends AppCompatActivity implements OnItemClickL
                 upperalpha[i] = (char)(65 + i);
             }
 
-            Integer[] digits = new Integer[9];
-            for(int i = 0; i < 9; i++){
+            Integer[] digits = new Integer[10];
+            for(int i = 0; i < 10; i++){
                 digits[i] = i;
             }
 
@@ -302,43 +303,57 @@ public class password_activity extends AppCompatActivity implements OnItemClickL
 
 
 
-           String working = "";
+
 
           //
             //  List<Character> out = new ArrayList<>();
-            char[] out = new char[passlength];
+            String working = "";
+
+            char[] rand_lower = new char[passlength];
             for (int i = 0; i < passlength; i++){
-                out[i] = (alpha[(nums.get(i) % 26)]);
-                working += alpha[(nums.get(i) % 26)];
+                rand_lower[i] = (alpha[(nums.get(i) % 26)]);
+              //  working += rand_lower[i];
             }
 
-
-            List<Integer> indxsUsed = new ArrayList<>();
+            char[] rand_upper = new char[passupper];
             for (int i = 0; i < passupper; i++){
-
-                Integer valofcurr = Integer.valueOf(out[i]);
-                Integer newupperindx = ( valofcurr * nums.get(i)  ) % 26;
-                Integer rand_indx = ( valofcurr + nums.get(i)  ) % out.length;
-                out[rand_indx] = upperalpha[newupperindx];
-
-
-                //debug.setText(String.valueOf(valofcurr));
+               rand_upper[i] = upperalpha[(nums.get(26+i) % 26)];
+               working += String.valueOf(rand_upper[i]);
             }
 
-
-            for (int i = 0; i < passlength; i++){
-                working += alpha[(nums.get(i) % 26)];
+            Integer[] rand_digits = new Integer[passdigits];
+            for (int i = 0; i < passdigits; i++){
+                rand_digits[i] = digits[(nums.get(60+i) % 10)];
+                working += String.valueOf(rand_digits[i]);
             }
 
-
-            for (int i = 0; i < passlength; i++){
-                working += alpha[(nums.get(i) % 26)];
+            char[] rand_symbols = new char[passsymbols];
+            for (int i = 0; i < passsymbols; i++){
+                rand_symbols[i] = symbols[(nums.get(88-i) % 14)];
+                working += String.valueOf(rand_symbols[i]);
             }
 
+            Integer lowercaseTrimSize = passlength - passupper - passdigits - passsymbols;
+            for (int i = 0; i < lowercaseTrimSize; i++){
+                working += String.valueOf(rand_lower[i]);
+            }
+           debug.setText(working);
+            List<Character> s = new ArrayList<>();
+            for (int i = 0; i < working.length(); i++){
+                s.add(working.charAt(i));
+            }
+            Collections.shuffle(s);
             working = "";
-            for (int i = 0; i < out.length; i++){
-               working += out[i];
+            for (int i = 0; i < s.size(); i++){
+                working += s.get(i);
             }
+
+
+        //    working = working.substring(lowercaseTrimSize, working.length());
+
+          //  for (int i = 0; i < out.length; i++){
+            //   working += out[i];
+           // }
 
 
 
@@ -347,22 +362,18 @@ public class password_activity extends AppCompatActivity implements OnItemClickL
 
 
             textOutput.setText(working);
-
-
-
-
+            currOutput = working;
 
         }}
 
     void manualGeneration(){
         nums = new ArrayList<>();
         Random rand = new Random();
-        for (int i = 0; i < 40; i++){
+        for (int i = 0; i < 100; i++){
             int n = rand.nextInt(65535); //ANU Bound
             nums.add(n);
         }
     }
-
 
     void processData(JSONArray data_array){
         nums = new ArrayList<>();
@@ -379,9 +390,6 @@ public class password_activity extends AppCompatActivity implements OnItemClickL
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
-
-
         //  Toast.makeText(this, "Generated", Toast.LENGTH_SHORT).show();
 
     }
@@ -405,7 +413,7 @@ public class password_activity extends AppCompatActivity implements OnItemClickL
 
         protected String doInBackground(Void... urls) {
             try {
-                    String API_URL = "https://qrng.anu.edu.au/API/jsonI.php?length=40&type=uint16";
+                    String API_URL = "https://qrng.anu.edu.au/API/jsonI.php?length=100&type=uint16";
                     URL url = new URL(API_URL);
                     HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
                     try {

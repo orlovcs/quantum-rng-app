@@ -36,11 +36,13 @@ public class MainActivity extends AppCompatActivity
         Button six = findViewById(R.id.menu_649);
         Button max = findViewById(R.id.menu_max);
 
-        Button custom = findViewById(R.id.menu_custom);
+        Button pswd = findViewById(R.id.menu_custom);
         Button dice = findViewById(R.id.menu_dice);
 
         Button coin = findViewById(R.id.menu_coin);
         Button rng = findViewById(R.id.menu_rng);
+
+        Button about = findViewById(R.id.menu_about);
 
         six.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v) {
@@ -78,10 +80,10 @@ public class MainActivity extends AppCompatActivity
 
         });
 
-        custom.setOnClickListener(new View.OnClickListener(){
+        pswd.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v) {
 
-                Intent intent = new Intent(v.getContext(), customActivity.class);
+                Intent intent = new Intent(v.getContext(), password_activity.class);
                 // intent.putExtra("address", finalD);
                 //   intent.putExtra("rating", mModel.ratings[finalD]);
                 // Start activity
@@ -115,6 +117,17 @@ public class MainActivity extends AppCompatActivity
 
         });
 
+        about.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v) {
+
+                Intent intent = new Intent(v.getContext(), about_activity.class);
+                // intent.putExtra("address", finalD);
+                //   intent.putExtra("rating", mModel.ratings[finalD]);
+                // Start activity
+                startActivity(intent);
+            }
+
+        });
 
 
         /*
