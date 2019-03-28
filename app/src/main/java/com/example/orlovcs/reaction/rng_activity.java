@@ -51,6 +51,7 @@ public class rng_activity extends AppCompatActivity implements OnItemClickListen
     SeekBar repSet;
     Boolean real;
     CheckBox dec;
+    TextView amountnum;
 
 
 
@@ -88,6 +89,8 @@ public class rng_activity extends AppCompatActivity implements OnItemClickListen
 
         repSet = findViewById(R.id.numberLine);
 
+        amountnum = findViewById(R.id.amount_num);
+
         repSet.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
@@ -100,6 +103,7 @@ public class rng_activity extends AppCompatActivity implements OnItemClickListen
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 // TODO Auto-generated method stub
+                amountnum.setText(String.valueOf(progress + 1));
                 reps = progress + 1;
                 // Toast.makeText(getApplicationContext(), String.valueOf(progress),Toast.LENGTH_LONG).show();
             }
