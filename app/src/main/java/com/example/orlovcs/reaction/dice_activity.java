@@ -3,6 +3,7 @@ package com.example.orlovcs.reaction;
 import android.app.ProgressDialog;
 import android.content.ClipData;
 import android.content.ClipboardManager;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -130,6 +131,15 @@ public class dice_activity extends AppCompatActivity implements OnItemClickListe
                 Toast.makeText(getApplicationContext(),
                         "Copied!",
                         Toast.LENGTH_SHORT).show();
+            }
+        }else if (id == R.id.action_share){
+
+
+            if (currOutput != null && currOutput != "") {
+
+                Intent newi  = new sharefunc(currOutput).i;
+                startActivity(Intent.createChooser(newi, "Share via"));
+
             }
         }
         return super.onOptionsItemSelected(item);
