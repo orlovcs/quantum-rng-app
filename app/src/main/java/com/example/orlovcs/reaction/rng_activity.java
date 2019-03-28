@@ -16,6 +16,8 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.SeekBar;
+import android.widget.CheckBox;
 import android.widget.FrameLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -40,18 +42,24 @@ public class rng_activity extends AppCompatActivity implements OnItemClickListen
     TextView textOutput;
     String currOutput;
     ArrayList<Integer> nums;
-    Double minimum;
-    Double maximum;
+    Integer minimum;
+    Integer maximum;
     Integer reps;
     Boolean api = true;
     EditText setMin;
     EditText setMax;
+    SeekBar repSet;
+    Boolean real;
+    CheckBox dec;
 
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
+
 
         // Set Content View
         setContentView(R.layout.rng_layout);
@@ -68,11 +76,35 @@ public class rng_activity extends AppCompatActivity implements OnItemClickListen
         setMax = (EditText) findViewById(R.id.Big);
 
         String s = setMin.getText().toString();
-        minimum = Double.parseDouble(s);
+        minimum = Integer.parseInt(s);
 
 
         String b = setMax.getText().toString();
-        maximum = Double.parseDouble(b);
+        maximum = Integer.parseInt(b);
+
+        reps = 1;
+
+        dec =  findViewById(R.id.Decimal);
+
+        repSet = findViewById(R.id.numberLine);
+
+        repSet.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                // TODO Auto-generated method stub
+            }
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+                // TODO Auto-generated method stub
+            }
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                // TODO Auto-generated method stub
+                reps = progress + 1;
+                // Toast.makeText(getApplicationContext(), String.valueOf(progress),Toast.LENGTH_LONG).show();
+            }
+        });
+
 
         generateButon.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -91,6 +123,10 @@ public class rng_activity extends AppCompatActivity implements OnItemClickListen
             }
         });
     }
+
+
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -175,36 +211,54 @@ public class rng_activity extends AppCompatActivity implements OnItemClickListen
 
 
 
+            if (dec.isChecked()) {
+                real = true;
+            }
+            else{
+                real = false;
+            }
 
 
             String output = "";
 
             String s = setMin.getText().toString();
-            minimum = Double.parseDouble(s);
+            minimum = Integer.parseInt(s);
 
-            reps = 3;       // default
+
 
 
             String b = setMax.getText().toString();
-            maximum = Double.parseDouble(b);
+            maximum = Integer.parseInt(b);
 
 
             List<Integer> digitNums = nums.subList(0,reps);
-            Double diff =  maximum - minimum;
+            Integer diff =  maximum - minimum;
             debug.setText(' ' + String.valueOf(diff) + ' ' + String.valueOf(minimum) + ' ' + String.valueOf(maximum));
 
-            for(int i = 0; i < digitNums.size(); i++){
+
+            if (minimum < maximum && minimum >= 0){
+            for(int i = 0; i < digitNums.size(); i++) {
 
 
                 Double rand = new Double(digitNums.get(i));
-                Double v = minimum + (diff)*rand/65535;
+                Double v = minimum + (diff) * rand / 65535;
 
-                Toast.makeText(this, " " + v, Toast.LENGTH_SHORT).show();
+                int in = Integer.valueOf((int) Math.round(v));
+
+                Toast.makeText(this, " " + in, Toast.LENGTH_SHORT).show();
+
+                if (real == true) {
+                    output = output + '\n' + String.valueOf(v);
+                } else {
 
 
-                output = output + '\n' + String.valueOf(v);
+                    output = output + '\n' + String.valueOf(in);
+                }
+            }
 
 
+            }else{
+                output = "Boundary error";
             }
 
 
