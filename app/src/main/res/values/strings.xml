@@ -6,4 +6,99 @@
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
+
+    <string name="faqq">How are the number generations quantum?\n\n\n\nDo I need to be connected to the internet to use this app?\n\n\nWhat happens when the API is turned off?\n\n\nWhat do the brackets mean for some of the lottery numbers? \n \nWhat does the weight of tails option for coin toss do? \n \nWhere can I submit feedback? \n \n</string>
+    <string name="faqa">Numbers are generated based on data received from the ANU Quantum Random Numbers Server API which can be read about <a href="http://qrng.anu.edu.au/index.php"><u>here</u></a>.\n \nYes, in order to use the API. However, it can be turned off in each options menu.\n\nThe random numbers will be generated locally, this is typically faster.\n \nThose are the bonus numbers for applicable lotteries. \n \nDetermines the probability of getting tails. \n \nContact crimsonlabsdev@gmail.com for inquiries. \n \n</string>
+
+
+
+
+    <string-array name="lottos">
+
+        <item>6/49</item>
+        <item>SuperEnalotto</item>
+        <item>SuperLotto Plus</item>
+        <item>UK Lotto</item>
+        <item>Lotto Max</item>
+        <item>Euro Jackpot</item>
+        <item>Powerball</item>
+        <item>Euro Millions</item>
+        <item>Mega-Sena</item>
+        <item>Oz Lotto</item>
+        <item>Oz Powerball</item>
+        <item>France Loto</item>
+        <item>Daily Keno</item>
+        <item>Lotto America</item>
+        <item>Mega Millions</item>
+        <item>El Gordo</item>
+
+    </string-array>
+
+
+    <string-array name="rolls">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+        <item>11</item>
+        <item>12</item>
+        <item>13</item>
+        <item>14</item>
+        <item>15</item>
+        <item>16</item>
+        <item>17</item>
+        <item>18</item>
+        <item>19</item>
+        <item>20</item>
+        <item>21</item>
+
+    </string-array>
+
+    <string-array name="die">
+        <item>D3</item>
+        <item>D4</item>
+        <item>D5</item>
+        <item>D6</item>
+        <item>D7</item>
+        <item>D8</item>
+        <item>D9</item>
+        <item>D10</item>
+        <item>D12</item>
+        <item>D14</item>
+        <item>D20</item>
+        <item>D24</item>
+        <item>D30</item>
+        <item>D48</item>
+        <item>D50</item>
+        <item>D100</item>
+        <item>D1000</item>
+    </string-array>
+
+    <string-array name="weights">
+        <item>5%</item>
+        <item>10%</item>
+        <item>15%</item>
+        <item>20%</item>
+        <item>25%</item>
+        <item>30%</item>
+        <item>35%</item>
+        <item>40%</item>
+        <item>45%</item>
+        <item>50%</item>
+
+    </string-array>
+
+
+    <string-array name="rng">
+        <item>Integer</item>
+        <item>Binary</item>
+        <item>Floating Point</item>
+    </string-array>
+
 </resources>
