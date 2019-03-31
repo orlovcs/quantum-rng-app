@@ -169,34 +169,34 @@ Integer weightcalc;
 
             switch (i) {
                 case 0:
-                    weight = 5;
+                    weight = 50;
                     break;
                 case 1:
-                    weight = 10;
-                    break;
-                case 2:
-                    weight = 15;
-                    break;
-                case 3:
-                    weight = 20;
-                    break;
-                case 4:
-                    weight = 25;
-                    break;
-                case 5:
-                    weight = 30;
-                    break;
-                case 6:
-                    weight = 35;
-                    break;
-                case 7:
-                    weight = 40;
-                    break;
-                case 8:
                     weight = 45;
                     break;
+                case 2:
+                    weight = 40;
+                    break;
+                case 3:
+                    weight = 35;
+                    break;
+                case 4:
+                    weight = 30;
+                    break;
+                case 5:
+                    weight = 25;
+                    break;
+                case 6:
+                    weight = 20;
+                    break;
+                case 7:
+                    weight = 15;
+                    break;
+                case 8:
+                    weight = 10;
+                    break;
                 case 9:
-                    weight = 50;
+                    weight = 5;
                     break;
                 default:
                     weight = 50;
@@ -314,6 +314,8 @@ Integer weightcalc;
                     String API_URL = "https://qrng.anu.edu.au/API/jsonI.php?length=40&type=uint16";
                     URL url = new URL(API_URL);
                     HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+                    urlConnection.setConnectTimeout(10000);
+
                     try {
                         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
                         StringBuilder stringBuilder = new StringBuilder();
@@ -327,7 +329,11 @@ Integer weightcalc;
                         urlConnection.disconnect();
                     }
 
-            } catch (Exception e) {
+            }
+            catch (java.net.SocketTimeoutException e) {
+                return null;
+            }
+            catch (Exception e) {
                 Log.e("ERROR", e.getMessage(), e);
                 return null;
             }
