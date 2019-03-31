@@ -28,6 +28,13 @@
         </activity>
 
         <activity
+            android:label="Quantum Numbers"
+            android:name=".rng_activity"
+            android:parentActivityName=".MainActivity"
+            >
+        </activity>
+
+        <activity
             android:label="Quantum Lottery"
             android:name=".lottery_activity"
             android:parentActivityName=".MainActivity"

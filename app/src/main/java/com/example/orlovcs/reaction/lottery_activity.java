@@ -442,7 +442,8 @@ public class lottery_activity extends AppCompatActivity implements OnItemClickLi
                     String API_URL = "https://qrng.anu.edu.au/API/jsonI.php?length=40&type=uint16";
                     URL url = new URL(API_URL);
                     HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-                    try {
+                    urlConnection.setConnectTimeout(10000);
+                try {
                         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
                         StringBuilder stringBuilder = new StringBuilder();
                         String line;
@@ -455,7 +456,10 @@ public class lottery_activity extends AppCompatActivity implements OnItemClickLi
                         urlConnection.disconnect();
                     }
 
-            } catch (Exception e) {
+            }catch (java.net.SocketTimeoutException e) {
+                return null;
+            }
+            catch (Exception e) {
                 Log.e("ERROR", e.getMessage(), e);
                 return null;
             }

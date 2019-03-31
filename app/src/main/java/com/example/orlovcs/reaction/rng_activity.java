@@ -51,6 +51,7 @@ public class rng_activity extends AppCompatActivity implements OnItemClickListen
     SeekBar repSet;
     Boolean real;
     CheckBox dec;
+    TextView amountnum;
 
 
 
@@ -88,6 +89,8 @@ public class rng_activity extends AppCompatActivity implements OnItemClickListen
 
         repSet = findViewById(R.id.numberLine);
 
+        amountnum = findViewById(R.id.amount_num);
+
         repSet.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
@@ -100,6 +103,7 @@ public class rng_activity extends AppCompatActivity implements OnItemClickListen
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 // TODO Auto-generated method stub
+                amountnum.setText(String.valueOf(progress + 1));
                 reps = progress + 1;
                 // Toast.makeText(getApplicationContext(), String.valueOf(progress),Toast.LENGTH_LONG).show();
             }
@@ -329,6 +333,7 @@ public class rng_activity extends AppCompatActivity implements OnItemClickListen
                     String API_URL = "https://qrng.anu.edu.au/API/jsonI.php?length=40&type=uint16";
                     URL url = new URL(API_URL);
                     HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+                    urlConnection.setConnectTimeout(10000);
                     try {
                         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
                         StringBuilder stringBuilder = new StringBuilder();
@@ -342,7 +347,10 @@ public class rng_activity extends AppCompatActivity implements OnItemClickListen
                         urlConnection.disconnect();
                     }
 
-            } catch (Exception e) {
+            }catch (java.net.SocketTimeoutException e) {
+                return null;
+            }
+            catch (Exception e) {
                 Log.e("ERROR", e.getMessage(), e);
                 return null;
             }
