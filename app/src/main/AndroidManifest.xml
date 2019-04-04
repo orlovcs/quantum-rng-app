@@ -56,6 +56,13 @@
         </activity>
 
         <activity
+            android:label="Quantum Numbers"
+            android:name=".rng_activity"
+            android:parentActivityName=".MainActivity"
+            >
+        </activity>
+
+        <activity
             android:label="About"
             android:name=".about_activity"
             android:parentActivityName=".MainActivity"
