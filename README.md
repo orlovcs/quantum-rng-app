@@ -1,6 +1,5 @@
 ~todo
 - fix about page constraints
-- fix about page link
 - change titlebar fonts
 - fix the output constraints and standardize them
 - password timeout is more than ten seconds for some reason
