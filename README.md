@@ -16,3 +16,4 @@
 - give # heads, #of tails
 - standarize generate button location, font and size, make it above the toast location
 - password missing manual generation toast
+- about link works as a seperate textview: text25
