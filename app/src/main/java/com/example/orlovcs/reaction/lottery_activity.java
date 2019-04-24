@@ -8,6 +8,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -50,6 +51,7 @@ public class lottery_activity extends AppCompatActivity implements OnItemClickLi
 
         // Set Content View
         setContentView(R.layout.lottery_layout);
+
 
         currOutput = "";
         Button generateButon  = (Button) findViewById(R.id.generate);

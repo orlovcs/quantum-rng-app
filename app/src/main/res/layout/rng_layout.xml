@@ -28,6 +28,7 @@
         android:layout_marginEnd="34dp"
         android:layout_marginBottom="18dp"
         android:text="TextView"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -35,8 +36,8 @@
 
     <LinearLayout
         android:id="@+id/linearLayout"
-        android:layout_width="368dp"
-        android:layout_height="126dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="8dp"
@@ -47,7 +48,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="horizontal">
 
             <EditText
@@ -59,80 +60,64 @@
                 android:text="0"
                 tools:text="0" />
 
-            <Space
-                android:layout_width="3dp"
-                android:layout_height="wrap_content" />
-
             <EditText
                 android:id="@+id/Big"
                 android:layout_width="152dp"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:text="1"
-                tools:text="1"
                 android:inputType="number|none"
-                />
+                android:text="1"
+                tools:text="1" />
         </LinearLayout>
 
-        <LinearLayout
+        <TextView
+            android:id="@+id/amount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Amount of numbers"
+            tools:layout_editor_absoluteX="37dp"
+            tools:layout_editor_absoluteY="255dp"
+            tools:text="Amount of numbers" />
+
+        <SeekBar
+            android:id="@+id/numberLine"
+            style="@style/Widget.AppCompat.SeekBar.Discrete"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"/>
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:max="10"
+            android:progress="0"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/Decimal"
+            app:layout_constraintVertical_bias="0.149" />
 
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="40dp" />
+        <CheckBox
+            android:id="@+id/Decimal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Decimal"
+            tools:layout_editor_absoluteX="20dp"
+            tools:layout_editor_absoluteY="154dp"
+            tools:text="Decimal" />
 
     </LinearLayout>
 
-    <SeekBar
-        android:id="@+id/numberLine"
-        style="@style/Widget.AppCompat.SeekBar.Discrete"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="76dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:max="10"
-        android:progress="0"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textView7"
-        app:layout_constraintVertical_bias="0.017" />
-
     <TextView
         android:id="@+id/rng_output"
-        android:layout_width="330dp"
-        android:layout_height="418dp"
-        android:layout_marginStart="1dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="1dp"
-        android:layout_marginBottom="8dp"
+        android:layout_width="296dp"
+        android:layout_height="243dp"
         android:fontFamily="@font/abel"
+        android:text="3434"
         android:textAlignment="center"
         android:textColor="@color/colorAccent"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/generate_rng"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.417"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
-
-    <CheckBox
-        android:id="@+id/Decimal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
-        android:text="Decimal"
-        app:layout_constraintBottom_toTopOf="@+id/rng_output"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-        tools:text="Decimal" />
+        android:textSize="18sp"
+        tools:layout_editor_absoluteX="8dp"
+        tools:layout_editor_absoluteY="152dp"
+        tools:text="343434" />
 
     <TextView
         android:id="@+id/textView6"
@@ -160,31 +145,12 @@
         tools:text="Maximum" />
 
     <TextView
-        android:id="@+id/amount"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="72dp"
-        android:text="Amount of numbers"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="Amount of numbers" />
-
-    <TextView
         android:id="@+id/amount_num"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
         android:text="1"
-        app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
-        app:layout_constraintEnd_toEndOf="@+id/linearLayout"
-        app:layout_constraintHorizontal_bias="0.031"
-        app:layout_constraintStart_toEndOf="@+id/amount"
-        app:layout_constraintTop_toBottomOf="@+id/textView7"
-        app:layout_constraintVertical_bias="0.445"
+        tools:layout_editor_absoluteX="312dp"
+        tools:layout_editor_absoluteY="243dp"
         tools:text="1" />
 
 </android.support.constraint.ConstraintLayout>

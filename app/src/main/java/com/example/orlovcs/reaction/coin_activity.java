@@ -166,7 +166,6 @@ Integer weightcalc;
         }else if(adapterView.getId() == R.id.weight_spinner)
         {
 
-
             switch (i) {
                 case 0:
                     weight = 50;
@@ -203,7 +202,6 @@ Integer weightcalc;
             }
 
              weightcalc = (65535 * weight)/100;
-
 
         }
 
@@ -285,10 +283,6 @@ Integer weightcalc;
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
-
-
-        //  Toast.makeText(this, "Generated", Toast.LENGTH_SHORT).show();
 
     }
 

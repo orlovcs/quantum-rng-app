@@ -334,6 +334,7 @@ public class rng_activity extends AppCompatActivity implements OnItemClickListen
                     URL url = new URL(API_URL);
                     HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
                     urlConnection.setConnectTimeout(10000);
+                    urlConnection.setReadTimeout(10000);
                     try {
                         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
                         StringBuilder stringBuilder = new StringBuilder();

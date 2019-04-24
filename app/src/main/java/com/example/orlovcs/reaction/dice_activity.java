@@ -296,9 +296,9 @@ public class dice_activity extends AppCompatActivity implements OnItemClickListe
 
             }else{
                 String tmp = output;
-                output = "D"+ max + "x" + (rollOptionSelected+1) + ": " ;
+                output = "D"+ max + "x" + (rollOptionSelected+1) + ":\n" ;
                 output += tmp;
-                output +=" = "+sum;
+                output +="\n= "+sum;
                 textOutput.setText(output);
                 currOutput = output;
             }
@@ -412,6 +412,7 @@ public class dice_activity extends AppCompatActivity implements OnItemClickListe
 
                 } catch (JSONException e) {
                     e.printStackTrace();
+
                 }
 
                 Toast.makeText(getApplicationContext(),

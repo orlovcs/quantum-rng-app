@@ -94,8 +94,6 @@ public class password_activity extends AppCompatActivity implements OnItemClickL
                 uppercaseseek.setMax(progress);
                 passlength = progress;
 
-               // Toast.makeText(getApplicationContext(), String.valueOf(progress),Toast.LENGTH_LONG).show();
-
             }
         });
 
@@ -162,7 +160,12 @@ public class password_activity extends AppCompatActivity implements OnItemClickL
         generateButon.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
-                if (api == false){
+                if (passlength == 0){
+                    Toast.makeText(getApplicationContext(),
+                            "Increase password length!",
+                            Toast.LENGTH_SHORT).show();
+                }
+                else if (api == false){
                     Toast.makeText(getApplicationContext(),
                             "API Disabled\nManually Generated",
                             Toast.LENGTH_SHORT).show();
