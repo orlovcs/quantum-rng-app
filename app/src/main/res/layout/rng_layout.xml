@@ -7,13 +7,25 @@
     android:layout_height="match_parent">
 
 
+    <TextView
+        android:id="@+id/amount_num"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="132dp"
+        android:text="1"
+        app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
+        app:layout_constraintStart_toStartOf="@+id/linearLayout"
+        app:layout_constraintTop_toTopOf="@+id/linearLayout"
+        app:layout_constraintVertical_bias="0.473"
+        tools:text="1" />
+
     <Button
         android:id="@+id/generate_rng"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
         android:layout_marginStart="149dp"
         android:layout_marginEnd="149dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="4dp"
         android:text="Roll"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -108,15 +120,21 @@
 
     <TextView
         android:id="@+id/rng_output"
-        android:layout_width="296dp"
-        android:layout_height="243dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
         android:fontFamily="@font/abel"
         android:text="3434"
         android:textAlignment="center"
         android:textColor="@color/colorAccent"
-        android:textSize="18sp"
-        tools:layout_editor_absoluteX="8dp"
-        tools:layout_editor_absoluteY="152dp"
+        android:textSize="17sp"
+        app:layout_constraintBottom_toTopOf="@+id/generate_rng"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+        app:layout_constraintVertical_bias="0.0"
         tools:text="343434" />
 
     <TextView
@@ -143,14 +161,5 @@
         app:layout_constraintStart_toEndOf="@+id/textView6"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Maximum" />
-
-    <TextView
-        android:id="@+id/amount_num"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="1"
-        tools:layout_editor_absoluteX="312dp"
-        tools:layout_editor_absoluteY="243dp"
-        tools:text="1" />
 
 </android.support.constraint.ConstraintLayout>
