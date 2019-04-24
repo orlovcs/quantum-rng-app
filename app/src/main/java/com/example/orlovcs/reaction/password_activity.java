@@ -426,7 +426,8 @@ public class password_activity extends AppCompatActivity implements OnItemClickL
                     String API_URL = "https://qrng.anu.edu.au/API/jsonI.php?length=100&type=uint16";
                     URL url = new URL(API_URL);
                     HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-                    urlConnection.setConnectTimeout(10000);
+                    urlConnection.setConnectTimeout(5000);
+                    urlConnection.setReadTimeout(5000);
                     try {
                         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
                         StringBuilder stringBuilder = new StringBuilder();
