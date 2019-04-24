@@ -16,7 +16,7 @@
     <string name="faqq4">What does the weight of tails option for coin toss do?</string>
     <string name="faqa4">Determines the probability of getting tails. </string>
     <string name="faqq5">What do the brackets mean for some of the lottery numbers? </string>
-    <string name="faqa5">Those are the bonus numbers for applicable lotteries. Only applicable lotteries will feature bonus numbers</string>
+    <string name="faqa5">Those are the bonus numbers for applicable lotteries.</string>
     <string name="faqq6">Where can I submit feedback? </string>
     <string name="faqa6">Contact <a>crimsonlabsdev@gmail.com</a> for inquiries.</string>
 
