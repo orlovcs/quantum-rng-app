@@ -26,10 +26,11 @@
         android:layout_marginStart="149dp"
         android:layout_marginEnd="149dp"
         android:layout_marginBottom="4dp"
-        android:text="Roll"
+        android:text="generate"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        tools:text="generate" />
 
     <TextView
         android:id="@+id/textView5"
@@ -128,7 +129,7 @@
         android:fontFamily="@font/abel"
         android:textAlignment="center"
         android:textColor="@color/colorAccent"
-        android:textSize="17sp"
+        android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/generate_rng"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"

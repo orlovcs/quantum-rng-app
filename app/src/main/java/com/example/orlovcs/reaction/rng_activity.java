@@ -249,7 +249,7 @@ public class rng_activity extends AppCompatActivity implements OnItemClickListen
 
                 int in = Integer.valueOf((int) Math.round(v));
 
-                Toast.makeText(this, " " + in, Toast.LENGTH_SHORT).show();
+             //   Toast.makeText(this, " " + in, Toast.LENGTH_SHORT).show();
 
                 if (real == true) {
                     output = output + '\n' + String.valueOf(v);

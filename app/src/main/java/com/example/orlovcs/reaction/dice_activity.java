@@ -162,15 +162,11 @@ public class dice_activity extends AppCompatActivity implements OnItemClickListe
         if(adapterView.getId() == R.id.roll_spinner)
         {
             rollOptionSelected = i;
-            Toast.makeText(getApplicationContext(),
-                    "rolls: " + i,
-                    Toast.LENGTH_SHORT).show();
+        //    Toast.makeText(getApplicationContext(),   "rolls: " + i,   Toast.LENGTH_SHORT).show();
         }  else  if(adapterView.getId() == R.id.die_spinner)
         {
             dieOptionSelected = i;
-            Toast.makeText(getApplicationContext(),
-                    "die: " + i,
-                    Toast.LENGTH_SHORT).show();
+        //    Toast.makeText(getApplicationContext(), "die: " + i,    Toast.LENGTH_SHORT).show();
         }
 
 
@@ -283,6 +279,9 @@ public class dice_activity extends AppCompatActivity implements OnItemClickListe
                         output = String.valueOf(v);
                     }else{
                         output = output + "+" + v;
+                        if (i%3==0){
+                            output += "\n";
+                        }
                     }
                     sum+=v;
                 }
@@ -297,6 +296,7 @@ public class dice_activity extends AppCompatActivity implements OnItemClickListe
             }else{
                 String tmp = output;
                 output = "D"+ max + "x" + (rollOptionSelected+1) + ":\n" ;
+              //  tmp = tmp.replaceAll(".....", "$0\n");
                 output += tmp;
                 output +="\n= "+sum;
                 textOutput.setText(output);

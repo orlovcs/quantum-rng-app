@@ -32,7 +32,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/abel"
-            android:text="RNG"
+            android:text="RANDOM NUMBERS"
             android:textSize="18sp"
             tools:layout_editor_absoluteX="147dp"
             tools:layout_editor_absoluteY="27dp" />
@@ -42,10 +42,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/abel"
-            android:text="Coin"
+            android:text="COIN FLIP"
             android:textSize="18sp"
             tools:layout_editor_absoluteX="16dp"
-            tools:layout_editor_absoluteY="27dp" />
+            tools:layout_editor_absoluteY="27dp"
+            tools:text="COIN FLIP" />
 
         <Button
             android:id="@+id/menu_dice"
@@ -62,8 +63,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/abel"
-            android:text="PASSWORD"
-            android:textSize="18sp" />
+            android:text="PASSWORDS"
+            android:textSize="18sp"
+            tools:text="PASSWORDS" />
 
         <Button
             android:id="@+id/menu_about"
