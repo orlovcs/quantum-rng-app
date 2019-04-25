@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.example.orlovcs.reaction">
+    package="com.crimsonlabs.orlovcs.reaction">
 
     <application
         android:allowBackup="true"
@@ -13,7 +13,7 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <activity
-            android:name=".MainActivity"
+            android:name="com.crimsonlabs.orlovcs.reaction.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -25,43 +25,43 @@
 
         <activity
             android:label="Quantum Dice"
-            android:name=".dice_activity"
-            android:parentActivityName=".MainActivity"
+            android:name="com.crimsonlabs.orlovcs.reaction.dice_activity"
+            android:parentActivityName="com.crimsonlabs.orlovcs.reaction.MainActivity"
             >
         </activity>
 
         <activity
             android:label="Quantum Numbers"
-            android:name=".rng_activity"
-            android:parentActivityName=".MainActivity"
+            android:name="com.crimsonlabs.orlovcs.reaction.rng_activity"
+            android:parentActivityName="com.crimsonlabs.orlovcs.reaction.MainActivity"
             >
         </activity>
 
         <activity
             android:label="Quantum Lottery"
-            android:name=".lottery_activity"
-            android:parentActivityName=".MainActivity"
+            android:name="com.crimsonlabs.orlovcs.reaction.lottery_activity"
+            android:parentActivityName="com.crimsonlabs.orlovcs.reaction.MainActivity"
             >
         </activity>
 
         <activity
             android:label="Quantum Coins"
-            android:name=".coin_activity"
-            android:parentActivityName=".MainActivity"
+            android:name="com.crimsonlabs.orlovcs.reaction.coin_activity"
+            android:parentActivityName="com.crimsonlabs.orlovcs.reaction.MainActivity"
             >
         </activity>
 
         <activity
             android:label="Quantum Password"
-            android:name=".password_activity"
-            android:parentActivityName=".MainActivity"
+            android:name="com.crimsonlabs.orlovcs.reaction.password_activity"
+            android:parentActivityName="com.crimsonlabs.orlovcs.reaction.MainActivity"
             >
         </activity>
 
         <activity
             android:label="About"
-            android:name=".about_activity"
-            android:parentActivityName=".MainActivity"
+            android:name="com.crimsonlabs.orlovcs.reaction.about_activity"
+            android:parentActivityName="com.crimsonlabs.orlovcs.reaction.MainActivity"
             >
         </activity>
 
@@ -70,5 +70,4 @@
             android:resource="@array/preloaded_fonts" />
     </application>
     <uses-permission android:name="android.permission.INTERNET" />
-
 </manifest>

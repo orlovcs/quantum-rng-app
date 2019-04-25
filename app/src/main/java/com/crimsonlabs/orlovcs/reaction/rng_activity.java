@@ -1,9 +1,8 @@
-package com.example.orlovcs.reaction;
+package com.crimsonlabs.orlovcs.reaction;
 
 import android.app.ProgressDialog;
 import android.content.ClipData;
 import android.content.ClipboardManager;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -13,9 +12,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.Spinner;
+import android.widget.EditText;
+import android.widget.SeekBar;
+import android.widget.CheckBox;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,44 +32,79 @@ import java.util.List;
 import java.util.Random;
 
 
-public class dice_activity extends AppCompatActivity implements OnItemClickListener, AdapterView.OnItemSelectedListener {
+public class rng_activity extends AppCompatActivity implements OnItemClickListener, AdapterView.OnItemSelectedListener {
 
     TextView debug;
     TextView textOutput;
     String currOutput;
     ArrayList<Integer> nums;
-    Integer rollOptionSelected = 0;
-    Integer dieOptionSelected = 0;
+    Integer minimum;
+    Integer maximum;
+    Integer reps;
     Boolean api = true;
+    EditText setMin;
+    EditText setMax;
+    SeekBar repSet;
+    Boolean real;
+    CheckBox dec;
+    TextView amountnum;
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+
+
+
         // Set Content View
-        setContentView(R.layout.dice_layout);
+        setContentView(R.layout.rng_layout);
 
         currOutput = "";
 
-        Button generateButon = (Button) findViewById(R.id.generate_die);
+        Button generateButon = (Button) findViewById(R.id.generate_rng);
 
         nums = new ArrayList<>();
         debug = (TextView) findViewById(R.id.textView5);
-        textOutput = findViewById(R.id.dice_output);
+        textOutput = findViewById(R.id.rng_output);
 
-        Spinner roll_spinner = findViewById(R.id.roll_spinner);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,R.array.rolls,android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        roll_spinner.setAdapter(adapter);
-        roll_spinner.setOnItemSelectedListener(this);
+        setMin = (EditText) findViewById(R.id.Small);
+        setMax = (EditText) findViewById(R.id.Big);
+
+        String s = setMin.getText().toString();
+        minimum = Integer.parseInt(s);
 
 
-        Spinner die_spinner = findViewById(R.id.die_spinner);
-        ArrayAdapter<CharSequence> adapter_2 = ArrayAdapter.createFromResource(this,R.array.die,android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        die_spinner.setAdapter(adapter_2);
-        die_spinner.setOnItemSelectedListener(this);
+        String b = setMax.getText().toString();
+        maximum = Integer.parseInt(b);
+
+        reps = 1;
+
+        dec =  findViewById(R.id.Decimal);
+
+        repSet = findViewById(R.id.numberLine);
+
+        amountnum = findViewById(R.id.amount_num);
+
+        repSet.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                // TODO Auto-generated method stub
+            }
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+                // TODO Auto-generated method stub
+            }
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                // TODO Auto-generated method stub
+                amountnum.setText(String.valueOf(progress + 1));
+                reps = progress + 1;
+                // Toast.makeText(getApplicationContext(), String.valueOf(progress),Toast.LENGTH_LONG).show();
+            }
+        });
+
 
         generateButon.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -88,6 +123,10 @@ public class dice_activity extends AppCompatActivity implements OnItemClickListe
             }
         });
     }
+
+
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -132,15 +171,6 @@ public class dice_activity extends AppCompatActivity implements OnItemClickListe
                         "Copied!",
                         Toast.LENGTH_SHORT).show();
             }
-        }else if (id == R.id.action_share){
-
-
-            if (currOutput != null && currOutput != "") {
-
-                Intent newi  = new sharefunc(currOutput).i;
-                startActivity(Intent.createChooser(newi, "Share via"));
-
-            }
         }
         return super.onOptionsItemSelected(item);
     }
@@ -159,15 +189,7 @@ public class dice_activity extends AppCompatActivity implements OnItemClickListe
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
-        if(adapterView.getId() == R.id.roll_spinner)
-        {
-            rollOptionSelected = i;
-        //    Toast.makeText(getApplicationContext(),   "rolls: " + i,   Toast.LENGTH_SHORT).show();
-        }  else  if(adapterView.getId() == R.id.die_spinner)
-        {
-            dieOptionSelected = i;
-        //    Toast.makeText(getApplicationContext(), "die: " + i,    Toast.LENGTH_SHORT).show();
-        }
+
 
 
 
@@ -186,126 +208,72 @@ public class dice_activity extends AppCompatActivity implements OnItemClickListe
 
         if (!nums.isEmpty() && nums!=null) {
 
-            Integer sides = 0;
-            Integer max = 0;
 
 
-            switch (dieOptionSelected){
-                case 0: //649
-                    max = 3;
-                    break;
-                case 1:
-                    max = 4;
-                    break;
-                case 2:
-                    max = 5;
-                    break;
-                case 3:
-                    max = 6;
-                    break;
-                case 4:
-                    max = 7;
-                    break;
-                case 5:
-                    max = 8;
-                    break;
-                case 6:
-                    max = 9;
-                    break;
-                case 7:
-                    max = 10;
-                    break;
-                case 8:
-                    max = 12;
-                    break;
-                case 9:
-                    max = 14;
-                    break;
-                case 10:
-                    max = 20;
-                    break;
-                case 11:
-                    max = 24;
-                    break;
-                case 12:
-                    max = 30;
-                    break;
-                case 13:
-                    max = 48;
-                    break;
-                case 14:
-                    max = 50;
-                    break;
-                case 15:
-                    max = 100;
-                    break;
-                case 16:
-                    max = 1000;
-                    break;
-                default:
-                    max = 3;
-                    break;
+
+            if (dec.isChecked()) {
+                real = true;
+            }
+            else{
+                real = false;
             }
 
-            String output = "D"+max + "x"+rollOptionSelected;
 
-            List<Integer> digitNums = nums.subList(0,21);
+            String output = "";
 
-
-            Integer sum = 0;
-
+            String s = setMin.getText().toString();
+            minimum = Integer.parseInt(s);
 
 
 
 
-            if (dieOptionSelected == -1){ //d1k
+            String b = setMax.getText().toString();
+            maximum = Integer.parseInt(b);
 
-                Integer el = digitNums.get(0);
-                debug.setText(String.valueOf(el));
-                if (el < 99999){
-                    el = el * 2;
+
+            List<Integer> digitNums = nums.subList(0,reps);
+            Integer diff =  maximum - minimum;
+            debug.setText(' ' + String.valueOf(diff) + ' ' + String.valueOf(minimum) + ' ' + String.valueOf(maximum));
+
+
+            if (minimum < maximum && minimum >= 0){
+            for(int i = 0; i < digitNums.size(); i++) {
+
+
+                Double rand = new Double(digitNums.get(i));
+                Double v = minimum + (diff) * rand / 65535;
+
+                int in = Integer.valueOf((int) Math.round(v));
+
+             //   Toast.makeText(this, " " + in, Toast.LENGTH_SHORT).show();
+
+                if (real == true) {
+                    output = output + '\n' + String.valueOf(v);
+                } else {
+
+
+                    output = output + '\n' + String.valueOf(in);
                 }
-                output = String.valueOf(el%(99999+1));
+            }
+
 
             }else{
-
-
-
-                for(int i = 0; i < rollOptionSelected+1;i++){
-
-                    Integer v = digitNums.get(i)%(max) + 1;
-
-                    if (i == 0){
-                        output = String.valueOf(v);
-                    }else{
-                        output = output + "+" + v;
-                        if (i%3==0){
-                            output += "\n";
-                        }
-                    }
-                    sum+=v;
-                }
-
-            }
-
-            if (rollOptionSelected == 0){
-
-                textOutput.setText(output);
-                currOutput = output;
-
-            }else{
-                String tmp = output;
-                output = "D"+ max + "x" + (rollOptionSelected+1) + ":\n" ;
-              //  tmp = tmp.replaceAll(".....", "$0\n");
-                output += tmp;
-                output +="\n= "+sum;
-                textOutput.setText(output);
-                currOutput = output;
+                output = "Boundary error";
             }
 
 
+
+
+
+
+
+
+            textOutput.setText(output);
 
         }}
+
+
+
 
     void manualGeneration(){
         nums = new ArrayList<>();
@@ -348,7 +316,7 @@ public class dice_activity extends AppCompatActivity implements OnItemClickListe
         protected void onPreExecute() {
             debug.setText("");
             super.onPreExecute();
-            progDailog = new ProgressDialog(dice_activity.this);
+            progDailog = new ProgressDialog(rng_activity.this);
             progDailog.setMessage("Loading...");
             progDailog.setIndeterminate(false);
             progDailog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
@@ -363,8 +331,7 @@ public class dice_activity extends AppCompatActivity implements OnItemClickListe
                     HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
                     urlConnection.setConnectTimeout(5000);
                     urlConnection.setReadTimeout(5000);
-
-                try {
+                    try {
                         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
                         StringBuilder stringBuilder = new StringBuilder();
                         String line;
@@ -413,7 +380,6 @@ public class dice_activity extends AppCompatActivity implements OnItemClickListe
 
                 } catch (JSONException e) {
                     e.printStackTrace();
-
                 }
 
                 Toast.makeText(getApplicationContext(),

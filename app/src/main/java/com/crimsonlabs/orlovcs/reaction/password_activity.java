@@ -1,4 +1,4 @@
-package com.example.orlovcs.reaction;
+package com.crimsonlabs.orlovcs.reaction;
 
 import android.app.ProgressDialog;
 import android.content.ClipData;

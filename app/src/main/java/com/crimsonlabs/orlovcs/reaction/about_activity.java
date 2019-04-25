@@ -1,4 +1,4 @@
-package com.example.orlovcs.reaction;
+package com.crimsonlabs.orlovcs.reaction;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;

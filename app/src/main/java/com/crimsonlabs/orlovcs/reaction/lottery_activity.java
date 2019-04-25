@@ -1,8 +1,9 @@
-package com.example.orlovcs.reaction;
+package com.crimsonlabs.orlovcs.reaction;
 
 import android.app.ProgressDialog;
 import android.content.ClipData;
 import android.content.ClipboardManager;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -10,15 +11,11 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.SeekBar;
-import android.widget.CheckBox;
-import android.widget.FrameLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -36,79 +33,37 @@ import java.util.List;
 import java.util.Random;
 
 
-public class rng_activity extends AppCompatActivity implements OnItemClickListener, AdapterView.OnItemSelectedListener {
+public class lottery_activity extends AppCompatActivity implements OnItemClickListener, AdapterView.OnItemSelectedListener {
 
     TextView debug;
+    EditText firstLottoNum;
     TextView textOutput;
     String currOutput;
     ArrayList<Integer> nums;
-    Integer minimum;
-    Integer maximum;
-    Integer reps;
+    Integer lotteryOptionSelected = 0;
     Boolean api = true;
-    EditText setMin;
-    EditText setMax;
-    SeekBar repSet;
-    Boolean real;
-    CheckBox dec;
-    TextView amountnum;
-
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
-
-
         // Set Content View
-        setContentView(R.layout.rng_layout);
+        setContentView(R.layout.lottery_layout);
+
 
         currOutput = "";
-
-        Button generateButon = (Button) findViewById(R.id.generate_rng);
+        Button generateButon  = (Button) findViewById(R.id.generate);
 
         nums = new ArrayList<>();
-        debug = (TextView) findViewById(R.id.textView5);
-        textOutput = findViewById(R.id.rng_output);
+        debug = (TextView) findViewById(R.id.textView2);
+        textOutput = findViewById(R.id.textOutput);
+        Spinner lottery_spinner = findViewById(R.id.lottery_spinner);
 
-        setMin = (EditText) findViewById(R.id.Small);
-        setMax = (EditText) findViewById(R.id.Big);
-
-        String s = setMin.getText().toString();
-        minimum = Integer.parseInt(s);
-
-
-        String b = setMax.getText().toString();
-        maximum = Integer.parseInt(b);
-
-        reps = 1;
-
-        dec =  findViewById(R.id.Decimal);
-
-        repSet = findViewById(R.id.numberLine);
-
-        amountnum = findViewById(R.id.amount_num);
-
-        repSet.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-                // TODO Auto-generated method stub
-            }
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-                // TODO Auto-generated method stub
-            }
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                // TODO Auto-generated method stub
-                amountnum.setText(String.valueOf(progress + 1));
-                reps = progress + 1;
-                // Toast.makeText(getApplicationContext(), String.valueOf(progress),Toast.LENGTH_LONG).show();
-            }
-        });
-
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,R.array.lottos,android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        lottery_spinner.setAdapter(adapter);
+        lottery_spinner.setOnItemSelectedListener(this);
 
         generateButon.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -117,6 +72,7 @@ public class rng_activity extends AppCompatActivity implements OnItemClickListen
                     Toast.makeText(getApplicationContext(),
                             "API Disabled\nManually Generated",
                             Toast.LENGTH_SHORT).show();
+
                     manualGeneration();
                     setString();
                 }else{
@@ -127,10 +83,6 @@ public class rng_activity extends AppCompatActivity implements OnItemClickListen
             }
         });
     }
-
-
-
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -167,13 +119,22 @@ public class rng_activity extends AppCompatActivity implements OnItemClickListen
 
             if (currOutput != null && currOutput != "") {
 
-                final ClipboardManager clipboardManager = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
+                final android.content.ClipboardManager clipboardManager = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
                 ClipData clipData = ClipData.newPlainText("Source Text", currOutput);
                 clipboardManager.setPrimaryClip(clipData);
 
                 Toast.makeText(getApplicationContext(),
                         "Copied!",
                         Toast.LENGTH_SHORT).show();
+            }
+        }else if (id == R.id.action_share){
+
+
+            if (currOutput != null && currOutput != "") {
+
+                Intent newi  = new sharefunc(currOutput).i;
+                startActivity(Intent.createChooser(newi, "Share via"));
+
             }
         }
         return super.onOptionsItemSelected(item);
@@ -193,13 +154,7 @@ public class rng_activity extends AppCompatActivity implements OnItemClickListen
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
-
-
-
-
-
-
-
+        lotteryOptionSelected = i;
 
     }
 
@@ -212,72 +167,227 @@ public class rng_activity extends AppCompatActivity implements OnItemClickListen
 
         if (!nums.isEmpty() && nums!=null) {
 
+            Integer max = 0;
+            Integer digits = 0;
+            Integer bonuses = 0;
+            Integer bonusMax = 0;
+            boolean bonus = false;
+
+            /*
+
+        <item>6/49</item>
+        <item>SuperEnalotto</item>
+        <item>Superlotto Plus</item>
+        <item>UK Lottery</item>
+
+        <item>Lotto Max</item>
+
+        <item>Euro Jackpot</item>
+        <item>Powerball</item>
+        <item>Euro Millions</item>
+        <item>Mega-Sena</item>
+        <item>Oz Lotto</item>
+        <item>Oz Powerball</item>
+        <item>France Loto</item>
+        <item>Kenno</item>
+        <item>Lotto</item>
+        <item>Mega Millions</item>
+        <item>El Gordo</item>
 
 
+             */
 
-            if (dec.isChecked()) {
-                real = true;
+            switch (lotteryOptionSelected){
+                case 0: //649
+                    max = 49;
+                    digits = 6;
+                    bonuses = 1;
+                    bonusMax = 49;
+                    bonus = true;
+
+                    break;
+                case 1: //superenaloto
+                    max = 90;
+                    digits = 6;
+                    bonuses = 2;
+                    bonusMax = 90;
+                    bonus = true;
+                    break;
+                case 2: //superlallo plus
+                    max = 47;
+                    digits = 5;
+                    bonuses = 1;
+                    bonusMax = 27;
+                    bonus = true;
+                    break;
+                case 3://uk lotto
+                    max = 59;
+                    digits = 6;
+                    bonuses = 1;
+                    bonusMax = 59;
+                    bonus = true;
+                    break;
+                case 4: //max
+                    max = 49;
+                    digits = 7;
+                    bonuses = 1;
+                    bonusMax = 49;
+                    bonus = true;
+                    break;
+                case 5: //euro jackpot
+                    max = 50;
+                    digits = 5;
+                    bonuses = 2;
+                    bonusMax = 10;
+                    bonus = true;
+                    break;
+                case 6: //powerball
+                    max = 69;
+                    digits = 5;
+                    bonuses = 1;
+                    bonusMax = 26;
+                    bonus = true;
+                    break;
+                case 7: //euro millions
+                    max = 50;
+                    digits = 5;
+                    bonuses = 2;
+                    bonusMax = 12;
+                    bonus = true;
+                    break;
+                case 8://mega-sena
+                    max = 60;
+                    digits = 6;
+                    bonuses = 2;
+                    bonusMax = 0;
+                    bonus = false;
+                    break;
+                case 9://oz lotto
+                    max = 45;
+                    digits = 7;
+                    bonuses = 0;
+                    bonusMax = 0;
+                    bonus = false;
+                    break;
+                case 10://oz powerball
+                    max = 35;
+                    digits = 7;
+                    bonuses = 1;
+                    bonusMax = 20;
+                    bonus = true;
+                    break;
+                case 11://french lotto
+                    max = 49;
+                    digits = 5;
+                    bonuses = 1;
+                    bonusMax = 10;
+                    bonus = true;
+                    break;
+                case 12://kenno
+                    max = 70;
+                    digits = 20;
+                    bonuses = 0;
+                    bonusMax = 0;
+                    bonus = false;
+                    break;
+                case 13://lotto america
+                    max = 52;
+                    digits = 5;
+                    bonuses = 1;
+                    bonusMax = 10;
+                    bonus = true;
+                    break;
+                case 14: //mega millions
+                    max = 70;
+                    digits = 5;
+                    bonuses = 1;
+                    bonusMax = 25;
+                    bonus = true;
+                    break;
+                case 15://el gordo
+                    max = 99999;
+                    digits = 1;
+                    bonuses = 0;
+                    bonusMax = 0;
+                    bonus = false;
+                    break;
+
+                default:
+                    max = 49;
+                    digits = 6;
+                    bonuses = 1;
+                    bonusMax = 49;
+                    bonus = true;
+                    break;
             }
-            else{
-                real = false;
-            }
-
 
             String output = "";
 
-            String s = setMin.getText().toString();
-            minimum = Integer.parseInt(s);
+            List<Integer> digitNums = nums.subList(0,20);
+            List<Integer> bonusNums = nums.subList(21,39);
 
 
 
 
-            String b = setMax.getText().toString();
-            maximum = Integer.parseInt(b);
 
+            if (lotteryOptionSelected == 15){
 
-            List<Integer> digitNums = nums.subList(0,reps);
-            Integer diff =  maximum - minimum;
-            debug.setText(' ' + String.valueOf(diff) + ' ' + String.valueOf(minimum) + ' ' + String.valueOf(maximum));
-
-
-            if (minimum < maximum && minimum >= 0){
-            for(int i = 0; i < digitNums.size(); i++) {
-
-
-                Double rand = new Double(digitNums.get(i));
-                Double v = minimum + (diff) * rand / 65535;
-
-                int in = Integer.valueOf((int) Math.round(v));
-
-             //   Toast.makeText(this, " " + in, Toast.LENGTH_SHORT).show();
-
-                if (real == true) {
-                    output = output + '\n' + String.valueOf(v);
-                } else {
-
-
-                    output = output + '\n' + String.valueOf(in);
+                Integer el = digitNums.get(0);
+                debug.setText(String.valueOf(el));
+                if (el < 99999){
+                    el = el * 2;
                 }
-            }
 
+                output = String.valueOf(el%(99999+1));
 
             }else{
-                output = "Boundary error";
+
+                ArrayList<Integer> noClone = new ArrayList<Integer>(); //removes clones
+
+
+                for(int i = 0; i < digits;i++){
+
+                    Integer v = digitNums.get(i)%(max+1);
+
+                    while (noClone.contains(v)){
+                        if (v < max){
+                            v++;
+                        }else {
+                            v--;
+                        }
+
+                    }
+                    noClone.add(v);
+
+                    if (i == 0){
+                        output = String.valueOf(v);
+                    }else{
+                        output = output + "-" + v;
+                    }
+                }
+                if (bonus == true){
+                for(int i = 0; i < bonuses;i++){
+
+                    Integer v = bonusNums.get(i)%(bonusMax+1);
+
+                    while (noClone.contains(v)){
+                        if (v < bonusMax){
+                            v++;
+                        }else {
+                            v--;
+                        }
+
+                    }
+                    noClone.add(v);
+
+                    output = output + "-" + "(" + v + ")";
+                }}
             }
 
-
-
-
-
-
-
-
             textOutput.setText(output);
+            currOutput = output;
 
         }}
-
-
-
 
     void manualGeneration(){
         nums = new ArrayList<>();
@@ -320,7 +430,7 @@ public class rng_activity extends AppCompatActivity implements OnItemClickListen
         protected void onPreExecute() {
             debug.setText("");
             super.onPreExecute();
-            progDailog = new ProgressDialog(rng_activity.this);
+            progDailog = new ProgressDialog(lottery_activity.this);
             progDailog.setMessage("Loading...");
             progDailog.setIndeterminate(false);
             progDailog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
@@ -335,7 +445,7 @@ public class rng_activity extends AppCompatActivity implements OnItemClickListen
                     HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
                     urlConnection.setConnectTimeout(5000);
                     urlConnection.setReadTimeout(5000);
-                    try {
+                try {
                         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
                         StringBuilder stringBuilder = new StringBuilder();
                         String line;
