@@ -9,7 +9,7 @@
 
     <TextView
         android:id="@+id/amount_num"
-        android:layout_width="13dp"
+        android:layout_width="23dp"
         android:layout_height="19dp"
         android:layout_marginStart="68dp"
         android:text="1"
