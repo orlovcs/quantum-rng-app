@@ -57,6 +57,9 @@ Integer weightcalc;
         nums = new ArrayList<>();
         debug = (TextView) findViewById(R.id.textView5);
         textOutput = findViewById(R.id.coin_output);
+        textOutput.setTextIsSelectable(true);
+
+
 
         Spinner coin_spinner = findViewById(R.id.coin_spinner);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,R.array.rolls,android.R.layout.simple_spinner_item);

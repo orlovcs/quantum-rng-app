@@ -77,6 +77,7 @@
         android:textAlignment="center"
         android:textColor="@color/colorAccent"
         android:textSize="32dp"
+        android:textIsSelectable="true"
         app:layout_constraintBottom_toTopOf="@+id/textView5"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -58,6 +58,7 @@ public class lottery_activity extends AppCompatActivity implements OnItemClickLi
         nums = new ArrayList<>();
         debug = (TextView) findViewById(R.id.textView2);
         textOutput = findViewById(R.id.textOutput);
+        textOutput.setTextIsSelectable(true);
         Spinner lottery_spinner = findViewById(R.id.lottery_spinner);
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,R.array.lottos,android.R.layout.simple_spinner_item);

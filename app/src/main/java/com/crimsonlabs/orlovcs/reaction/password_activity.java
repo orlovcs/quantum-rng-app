@@ -64,6 +64,7 @@ public class password_activity extends AppCompatActivity implements OnItemClickL
         nums = new ArrayList<>();
         debug = (TextView) findViewById(R.id.textView5);
         textOutput = findViewById(R.id.password_output);
+        textOutput.setTextIsSelectable(true);
 
         lengthnum = findViewById(R.id.length_num);
         uppercasenum = findViewById(R.id.length_uppercase);

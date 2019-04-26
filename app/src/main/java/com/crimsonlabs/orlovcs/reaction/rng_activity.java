@@ -68,6 +68,7 @@ public class rng_activity extends AppCompatActivity implements OnItemClickListen
         nums = new ArrayList<>();
         debug = (TextView) findViewById(R.id.textView5);
         textOutput = findViewById(R.id.rng_output);
+        textOutput.setTextIsSelectable(true);
 
         setMin = (EditText) findViewById(R.id.Small);
         setMax = (EditText) findViewById(R.id.Big);

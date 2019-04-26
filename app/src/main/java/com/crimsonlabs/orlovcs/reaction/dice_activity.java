@@ -57,6 +57,7 @@ public class dice_activity extends AppCompatActivity implements OnItemClickListe
         nums = new ArrayList<>();
         debug = (TextView) findViewById(R.id.textView5);
         textOutput = findViewById(R.id.dice_output);
+        textOutput.setTextIsSelectable(true);
 
         Spinner roll_spinner = findViewById(R.id.roll_spinner);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,R.array.rolls,android.R.layout.simple_spinner_item);
