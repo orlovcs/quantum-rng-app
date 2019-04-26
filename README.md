@@ -2,7 +2,8 @@
 - change titlebar fonts
 - double check all copy and share works
 - App is not indexable by Google Search; consider adding at least one Activity with an ACTION-VIEW intent-filler
-
+- randomized password slider menu option
+- coin flip history and total counter
 ~done
 - add manual random gen fall back make toasts to notofy if true random generated or manual fallback
 - give option to turn off the api
