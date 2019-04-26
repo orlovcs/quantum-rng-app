@@ -4,6 +4,7 @@
 - App is not indexable by Google Search; consider adding at least one Activity with an ACTION-VIEW intent-filler
 - randomized password slider menu option
 - coin flip history and total counter
+
 ~done
 - add manual random gen fall back make toasts to notofy if true random generated or manual fallback
 - give option to turn off the api
@@ -17,3 +18,5 @@
 - fix the output constraints and standardize them
 - password timeout is more than ten seconds for some reason
 - rng constraint
+- app icon and label
+- selectable text
