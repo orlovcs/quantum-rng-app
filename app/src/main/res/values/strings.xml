@@ -8,7 +8,7 @@
     <string name="action_settings">Settings</string>
 
     <string name="faqq1">How are the number generations quantum?</string>
-    <string name="faqa1">Numbers are generated based on data received from the ANU Quantum Random Numbers Server API which can be read about here: <a href="http://www.qrng.anu.edu.au/index.php">http://www.qrng.anu.edu.au/index.php</a></string>
+    <string name="faqa1">Numbers are generated based on data received from the ANU Quantum Random Numbers Server API which can be read about here: </string>
     <string name="faqq2">Do I need to be connected to the internet to use this app?</string>
     <string name="faqa2">Yes, in order to use the API. However, it can be turned off in each options menu.</string>
     <string name="faqq3">What happens when the API is turned off?</string>

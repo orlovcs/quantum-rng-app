@@ -29,6 +29,7 @@ import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.math.BigInteger;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
@@ -77,11 +78,33 @@ public class rng_activity extends AppCompatActivity implements OnItemClickListen
         setMax = (EditText) findViewById(R.id.Big);
 
         String s = setMin.getText().toString();
-        minimum = Integer.parseInt(s);
+
+        BigInteger sizeTest = new BigInteger(s);
+        BigInteger intMax = BigInteger.valueOf(Integer.MAX_VALUE);
+        BigInteger intMin = BigInteger.valueOf(Integer.MIN_VALUE);
+
+        if (sizeTest.compareTo(intMax) < 0 && sizeTest.compareTo(intMin) > 0){
+            minimum = Integer.parseInt(s);
+
+        }else{
+            maximum = 0;
+            minimum = 0;
+        }
+
 
 
         String b = setMax.getText().toString();
-        maximum = Integer.parseInt(b);
+        sizeTest = new BigInteger(b);
+
+        if (sizeTest.compareTo(intMax) < 0 && sizeTest.compareTo(intMin) > 0){
+            maximum = Integer.parseInt(b);
+
+        }else{
+            maximum = 0;
+            minimum = 0;
+        }
+
+
 
         reps = 1;
 
@@ -112,6 +135,7 @@ public class rng_activity extends AppCompatActivity implements OnItemClickListen
 
         generateButon.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+
 
                 if (api == false){
                     Toast.makeText(getApplicationContext(),
@@ -226,13 +250,29 @@ public class rng_activity extends AppCompatActivity implements OnItemClickListen
             String output = "";
 
             String s = setMin.getText().toString();
-            minimum = Integer.parseInt(s);
+            BigInteger sizeTest = new BigInteger(s);
+            BigInteger intMax = BigInteger.valueOf(Integer.MAX_VALUE);
+            BigInteger intMin = BigInteger.valueOf(Integer.MIN_VALUE);
 
+            if (sizeTest.compareTo(intMax) < 0 && sizeTest.compareTo(intMin) > 0){
+                minimum = Integer.parseInt(s);
+
+            }else{
+                maximum = 0;
+                minimum = 0;
+            }
 
 
 
             String b = setMax.getText().toString();
-            maximum = Integer.parseInt(b);
+            sizeTest = new BigInteger(b);
+            if (sizeTest.compareTo(intMax) < 0 && sizeTest.compareTo(intMin) > 0){
+                maximum = Integer.parseInt(b);
+
+            }else{
+                maximum = 0;
+                minimum = 0;
+            }
 
 
             List<Integer> digitNums = nums.subList(0,reps);
@@ -262,7 +302,7 @@ public class rng_activity extends AppCompatActivity implements OnItemClickListen
 
 
             }else{
-                output = "Boundary error";
+                output = "Boundary error" + '\n' + "Make sure the numbers are all greater than 0 and less than 2147483647" + '\n' + "Also make sure that Maximum is larger than Minimum";
             }
 
 
