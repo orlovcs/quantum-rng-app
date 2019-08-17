@@ -116,7 +116,7 @@ public class password_activity extends AppCompatActivity implements OnItemClickL
 
                 digitsseek.setMax(lengthseek.getProgress() - progress);
                 passupper = progress;
-               // symbolsseek.setMax(progress);
+                // symbolsseek.setMax(progress);
                 // Toast.makeText(getApplicationContext(), String.valueOf(progress),Toast.LENGTH_LONG).show();
             }
         });
@@ -319,20 +319,20 @@ public class password_activity extends AppCompatActivity implements OnItemClickL
 
 
 
-          //
+            //
             //  List<Character> out = new ArrayList<>();
             String working = "";
 
             char[] rand_lower = new char[passlength];
             for (int i = 0; i < passlength; i++){
                 rand_lower[i] = (alpha[(nums.get(i) % 26)]);
-              //  working += rand_lower[i];
+                //  working += rand_lower[i];
             }
 
             char[] rand_upper = new char[passupper];
             for (int i = 0; i < passupper; i++){
-               rand_upper[i] = upperalpha[(nums.get(26+i) % 26)];
-               working += String.valueOf(rand_upper[i]);
+                rand_upper[i] = upperalpha[(nums.get(26+i) % 26)];
+                working += String.valueOf(rand_upper[i]);
             }
 
             Integer[] rand_digits = new Integer[passdigits];
@@ -351,7 +351,7 @@ public class password_activity extends AppCompatActivity implements OnItemClickL
             for (int i = 0; i < lowercaseTrimSize; i++){
                 working += String.valueOf(rand_lower[i]);
             }
-           debug.setText(working);
+            debug.setText(working);
             List<Character> s = new ArrayList<>();
             for (int i = 0; i < working.length(); i++){
                 s.add(working.charAt(i));
@@ -363,16 +363,16 @@ public class password_activity extends AppCompatActivity implements OnItemClickL
             }
 
 
-        //    working = working.substring(lowercaseTrimSize, working.length());
+            //    working = working.substring(lowercaseTrimSize, working.length());
 
-          //  for (int i = 0; i < out.length; i++){
+            //  for (int i = 0; i < out.length; i++){
             //   working += out[i];
-           // }
+            // }
 
 
 
             // debug.setText(String.valueOf(alpha[0])+String.valueOf(alpha[26])+String.valueOf(upperalpha[0])+String.valueOf(upperalpha[26])+String.valueOf(digits[0])+String.valueOf(digits[9])+String.valueOf(symbols[0])+String.valueOf(symbols[14]));
-          //  debug.setText(String.valueOf(symbols[13]));
+            //  debug.setText(String.valueOf(symbols[13]));
 
 
             textOutput.setText(working);
@@ -393,12 +393,12 @@ public class password_activity extends AppCompatActivity implements OnItemClickL
         nums = new ArrayList<>();
         try {
             if (data_array != null){
-            for(int i=0;i<data_array.length();i++){
-                int data = data_array.getInt(i);
-                debug.setText(  debug.getText() + "\n" + i + " is " + String.valueOf(data) + ". num mod 49 is " + data%49  );
-                // firstLottoNum.setText(String.valueOf(data));
-                nums.add(data);
-            }}
+                for(int i=0;i<data_array.length();i++){
+                    int data = data_array.getInt(i);
+                    debug.setText(  debug.getText() + "\n" + i + " is " + String.valueOf(data) + ". num mod 49 is " + data%49  );
+                    // firstLottoNum.setText(String.valueOf(data));
+                    nums.add(data);
+                }}
 
 
         } catch (JSONException e) {
@@ -427,23 +427,23 @@ public class password_activity extends AppCompatActivity implements OnItemClickL
 
         protected String doInBackground(Void... urls) {
             try {
-                    String API_URL = "https://qrng.anu.edu.au/API/jsonI.php?length=100&type=uint16";
-                    URL url = new URL(API_URL);
-                    HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-                    urlConnection.setConnectTimeout(5000);
-                    urlConnection.setReadTimeout(5000);
-                    try {
-                        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
-                        StringBuilder stringBuilder = new StringBuilder();
-                        String line;
-                        while ((line = bufferedReader.readLine()) != null) {
-                            stringBuilder.append(line).append("\n");
-                        }
-                        bufferedReader.close();
-                        return stringBuilder.toString();
-                    } finally {
-                        urlConnection.disconnect();
+                String API_URL = "https://qrng.anu.edu.au/API/jsonI.php?length=100&type=uint16";
+                URL url = new URL(API_URL);
+                HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+                urlConnection.setConnectTimeout(5000);
+                urlConnection.setReadTimeout(5000);
+                try {
+                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
+                    StringBuilder stringBuilder = new StringBuilder();
+                    String line;
+                    while ((line = bufferedReader.readLine()) != null) {
+                        stringBuilder.append(line).append("\n");
                     }
+                    bufferedReader.close();
+                    return stringBuilder.toString();
+                } finally {
+                    urlConnection.disconnect();
+                }
 
             }catch (java.net.SocketTimeoutException e) {
                 return null;
@@ -465,6 +465,9 @@ public class password_activity extends AppCompatActivity implements OnItemClickL
                 setString();
 
             } else {
+
+
+
 
                 Log.i("INFO", response);
                 debug.setText(response);

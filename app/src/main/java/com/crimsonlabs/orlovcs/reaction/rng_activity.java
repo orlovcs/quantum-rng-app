@@ -135,9 +135,7 @@ public class rng_activity extends AppCompatActivity implements OnItemClickListen
 
 
                 if (api == false){
-                    Toast.makeText(getApplicationContext(),
-                            "API Disabled\nManually Generated",
-                            Toast.LENGTH_SHORT).show();
+
                     manualGeneration();
                     setString();
                 }else{
@@ -290,26 +288,30 @@ public class rng_activity extends AppCompatActivity implements OnItemClickListen
 
                 if (real == true) {
                     output = output + '\n' + String.valueOf(v);
+                    currOutput = output;
                 } else {
 
 
                     output = output + '\n' + String.valueOf(in);
+                    currOutput = output;
+
                 }
             }
 
 
+                Toast.makeText(getApplicationContext(),
+                        "API Disabled\nManually Generated",
+                        Toast.LENGTH_SHORT).show();
+
             }else{
                 output = "Boundary error" + '\n' + "Make sure the numbers are all greater than 0 and less than 2147483647" + '\n' + "Also make sure that Maximum is larger than Minimum";
+                currOutput = output;
+
             }
 
 
-
-
-
-
-
-
             textOutput.setText(output);
+            currOutput = output;
 
         }}
 
