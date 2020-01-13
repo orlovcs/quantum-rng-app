@@ -349,7 +349,8 @@ public class lottery_activity extends AppCompatActivity implements OnItemClickLi
 
                 for(int i = 0; i < digits;i++){
 
-                    Integer v = digitNums.get(i)%(max+1);
+                    Integer v =  digitNums.get(i)%(max);
+                    v++;
 
                     while (noClone.contains(v)){
                         if (v < max){
