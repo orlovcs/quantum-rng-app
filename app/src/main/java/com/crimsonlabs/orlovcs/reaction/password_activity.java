@@ -433,7 +433,7 @@ public class password_activity extends AppCompatActivity implements OnItemClickL
             String response = null;
             //try Zurich server
             try {
-                String API_URL = "http://random.openqu.org/api/randint?size=40&min=0&max=65535";
+                String API_URL = "http://random.openqu.org/api/randint?size=100&min=0&max=65535";
                 URL url = new URL(API_URL);
                 HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
                 urlConnection.setConnectTimeout(5000);
@@ -467,7 +467,7 @@ public class password_activity extends AppCompatActivity implements OnItemClickL
 
                 //try ANU Server
                 try {
-                    String API_URL = "https://qrng.anu.edu.au/API/jsonI.php?length=40&type=uint16";
+                    String API_URL = "https://qrng.anu.edu.au/API/jsonI.php?length=100&type=uint16";
                     URL url = new URL(API_URL);
                     HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
                     urlConnection.setConnectTimeout(5000);
