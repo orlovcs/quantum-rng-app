@@ -314,7 +314,7 @@ Integer weightcalc;
                     urlConnection.setConnectTimeout(5000);
                     urlConnection.setReadTimeout(5000);
 
-                    try {
+            try {
                         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
                         StringBuilder stringBuilder = new StringBuilder();
                         String line;
