@@ -41,7 +41,9 @@ public class coin_activity extends AppCompatActivity implements OnItemClickListe
     Integer coinAmountSelected = 0;
     Integer weight = 50;
     Boolean api = true;
-Integer weightcalc;
+    Boolean ANU = false;
+
+    Integer weightcalc;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -307,14 +309,50 @@ Integer weightcalc;
         }
 
         protected String doInBackground(Void... urls) {
+
+            String response = null;
+            //try Zurich server
             try {
+                String API_URL = "http://random.openqu.org/api/randint?size=40&min=0&max=65535";
+                URL url = new URL(API_URL);
+                HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+                urlConnection.setConnectTimeout(5000);
+                urlConnection.setReadTimeout(5000);
+                try {
+                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
+                    StringBuilder stringBuilder = new StringBuilder();
+                    String line;
+                    while ((line = bufferedReader.readLine()) != null) {
+                        stringBuilder.append(line).append("\n");
+                    }
+                    bufferedReader.close();
+                    response = stringBuilder.toString();
+                } finally {
+                    urlConnection.disconnect();
+                }
+
+            }catch (java.net.SocketTimeoutException e) {
+                response = null;
+            }
+            catch (Exception e) {
+                Log.e("ERROR", e.getMessage(), e);
+                response = null;
+            }
+
+
+
+            if (response == null){ //try the anu instead
+
+                ANU = true;
+
+                //try ANU Server
+                try {
                     String API_URL = "https://qrng.anu.edu.au/API/jsonI.php?length=40&type=uint16";
                     URL url = new URL(API_URL);
                     HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
                     urlConnection.setConnectTimeout(5000);
                     urlConnection.setReadTimeout(5000);
-
-            try {
+                    try {
                         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
                         StringBuilder stringBuilder = new StringBuilder();
                         String line;
@@ -322,19 +360,24 @@ Integer weightcalc;
                             stringBuilder.append(line).append("\n");
                         }
                         bufferedReader.close();
-                        return stringBuilder.toString();
+                        response = stringBuilder.toString();
                     } finally {
                         urlConnection.disconnect();
                     }
 
+                }catch (java.net.SocketTimeoutException e) {
+                    response = null;
+                }
+                catch (Exception e) {
+                    Log.e("ERROR", e.getMessage(), e);
+                    response = null;
+                }
+
+
             }
-            catch (java.net.SocketTimeoutException e) {
-                return null;
-            }
-            catch (Exception e) {
-                Log.e("ERROR", e.getMessage(), e);
-                return null;
-            }
+
+            return response;
+
         }
         protected void onPostExecute(String response) {
 
@@ -357,7 +400,14 @@ Integer weightcalc;
                 try {
 
                     json = new JSONObject(response);
-                    JSONArray data_array = json.getJSONArray("data"); //<< get value here
+                    JSONArray data_array;
+                    if (ANU == false){
+                        data_array = json.getJSONArray("result"); //<< get value here
+
+                    }else {
+                        data_array = json.getJSONArray("data"); //<< get value here
+
+                    }
                     processData(data_array);
                     setString();
 
