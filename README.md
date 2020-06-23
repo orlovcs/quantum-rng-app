@@ -1,5 +1,5 @@
 # Quantum Random Number Generator
-This is an Android app which allows for generation of almost completely random numbers. Access it ![here](https://play.google.com/store/apps/details?id=com.crimsonlabs.orlovcs.reaction).
+This is an Android app which allows for generation of almost completely random numbers. Access it [here](https://play.google.com/store/apps/details?id=com.crimsonlabs.orlovcs.reaction).
 
 # Play Store Description:
 Tools using quantum truly randomized numbers include:
