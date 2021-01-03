@@ -431,37 +431,11 @@ public class password_activity extends AppCompatActivity implements OnItemClickL
         protected String doInBackground(Void... urls) {
 
             String response = null;
-            //try Zurich server
-            try {
-                String API_URL = "http://random.openqu.org/api/randint?size=100&min=0&max=65535";
-                URL url = new URL(API_URL);
-                HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-                urlConnection.setConnectTimeout(5000);
-                urlConnection.setReadTimeout(5000);
-                try {
-                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
-                    StringBuilder stringBuilder = new StringBuilder();
-                    String line;
-                    while ((line = bufferedReader.readLine()) != null) {
-                        stringBuilder.append(line).append("\n");
-                    }
-                    bufferedReader.close();
-                    response = stringBuilder.toString();
-                } finally {
-                    urlConnection.disconnect();
-                }
-
-            }catch (java.net.SocketTimeoutException e) {
-                response = null;
-            }
-            catch (Exception e) {
-                Log.e("ERROR", e.getMessage(), e);
-                response = null;
-            }
 
 
 
-            if (response == null){ //try the anu instead
+
+
 
                 ANU = true;
 
@@ -494,7 +468,6 @@ public class password_activity extends AppCompatActivity implements OnItemClickL
                 }
 
 
-            }
 
             return response;
 
