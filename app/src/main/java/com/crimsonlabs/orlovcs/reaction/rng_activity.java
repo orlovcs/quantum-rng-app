@@ -1,33 +1,26 @@
 package com.crimsonlabs.orlovcs.reaction;
 
-import android.app.ProgressDialog;
 import android.content.ClipData;
 import android.content.ClipboardManager;
-import android.os.AsyncTask;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.SeekBar;
-import android.widget.CheckBox;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
 import java.math.BigInteger;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -58,22 +51,20 @@ public class rng_activity extends AppCompatActivity implements OnItemClickListen
         super.onCreate(savedInstanceState);
 
 
-
-
         // Set Content View
         setContentView(R.layout.rng_layout);
 
         currOutput = "";
 
-        Button generateButon = (Button) findViewById(R.id.generate_rng);
+        Button generateButon = findViewById(R.id.generate_rng);
 
         nums = new ArrayList<>();
-        debug = (TextView) findViewById(R.id.textView5);
+        debug = findViewById(R.id.textView5);
         textOutput = findViewById(R.id.rng_output);
         textOutput.setTextIsSelectable(true);
 
-        setMin = (EditText) findViewById(R.id.Small);
-        setMax = (EditText) findViewById(R.id.Big);
+        setMin = findViewById(R.id.Small);
+        setMax = findViewById(R.id.Big);
 
         String s = setMin.getText().toString();
 
@@ -81,32 +72,30 @@ public class rng_activity extends AppCompatActivity implements OnItemClickListen
         BigInteger intMax = BigInteger.valueOf(Integer.MAX_VALUE);
         BigInteger intMin = BigInteger.valueOf(Integer.MIN_VALUE);
 
-        if (sizeTest.compareTo(intMax) < 0 && sizeTest.compareTo(intMin) > 0){
+        if (sizeTest.compareTo(intMax) < 0 && sizeTest.compareTo(intMin) > 0) {
             minimum = Integer.parseInt(s);
 
-        }else{
+        } else {
             maximum = 0;
             minimum = 0;
         }
-
 
 
         String b = setMax.getText().toString();
         sizeTest = new BigInteger(b);
 
-        if (sizeTest.compareTo(intMax) < 0 && sizeTest.compareTo(intMin) > 0){
+        if (sizeTest.compareTo(intMax) < 0 && sizeTest.compareTo(intMin) > 0) {
             maximum = Integer.parseInt(b);
 
-        }else{
+        } else {
             maximum = 0;
             minimum = 0;
         }
 
 
-
         reps = 1;
 
-        dec =  findViewById(R.id.Decimal);
+        dec = findViewById(R.id.Decimal);
 
         repSet = findViewById(R.id.numberLine);
 
@@ -117,39 +106,57 @@ public class rng_activity extends AppCompatActivity implements OnItemClickListen
             public void onStopTrackingTouch(SeekBar seekBar) {
                 // TODO Auto-generated method stub
             }
+
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
                 // TODO Auto-generated method stub
             }
+
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 // TODO Auto-generated method stub
                 amountnum.setText(String.valueOf(progress + 1));
                 reps = progress + 1;
-                // Toast.makeText(getApplicationContext(), String.valueOf(progress),Toast.LENGTH_LONG).show();
             }
         });
 
+        final Context context = this;
+        final RetrieveAPIHelper helper = new RetrieveAPIHelper() {
+            @Override
+            public void onSuccess(JSONArray data_array) {
+                Toast.makeText(getApplicationContext(),
+                        "API Call Success\nNumbers Generated",
+                        Toast.LENGTH_SHORT).show();
+                processData(data_array);
+                setString();
+            }
+
+            @Override
+            public void onFail(String Response) {
+                Toast.makeText(getApplicationContext(),
+                        "API Call Failed\nManually Generated",
+                        Toast.LENGTH_SHORT).show();
+                manualGeneration();
+                setString();
+            }
+        };
 
         generateButon.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
 
-                if (api == false){
+                if (!api) {
 
                     manualGeneration();
                     setString();
-                }else{
+                } else {
                     textOutput.setText("");
                     currOutput = "";
-                    new RetrieveAPI().execute();
+                    new RetrieveAPI(context, helper).execute();
                 }
             }
         });
     }
-
-
-
 
 
     @Override
@@ -169,13 +176,13 @@ public class rng_activity extends AppCompatActivity implements OnItemClickListen
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_api) {
 
-            if (api == true){
+            if (!api) {
                 api = false;
                 Toast.makeText(getApplicationContext(),
                         "API Disabled",
                         Toast.LENGTH_SHORT).show();
                 item.setChecked(false);
-            }else{
+            } else {
                 api = true;
                 Toast.makeText(getApplicationContext(),
                         "API Enabled",
@@ -183,9 +190,9 @@ public class rng_activity extends AppCompatActivity implements OnItemClickListen
                 item.setChecked(true);
             }
 
-        }else if (id == R.id.action_copy){
+        } else if (id == R.id.action_copy) {
 
-            if (currOutput != null && currOutput != "") {
+            if (currOutput != null && !currOutput.equals("")) {
 
                 final ClipboardManager clipboardManager = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
                 ClipData clipData = ClipData.newPlainText("Source Text", currOutput);
@@ -214,13 +221,6 @@ public class rng_activity extends AppCompatActivity implements OnItemClickListen
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
 
-
-
-
-
-
-
-
     }
 
     @Override
@@ -228,19 +228,12 @@ public class rng_activity extends AppCompatActivity implements OnItemClickListen
 
     }
 
-    void setString(){
+    void setString() {
 
-        if (!nums.isEmpty() && nums!=null) {
-
-
+        if (!nums.isEmpty()) {
 
 
-            if (dec.isChecked()) {
-                real = true;
-            }
-            else{
-                real = false;
-            }
+            real = dec.isChecked();
 
 
             String output = "";
@@ -250,214 +243,82 @@ public class rng_activity extends AppCompatActivity implements OnItemClickListen
             BigInteger intMax = BigInteger.valueOf(Integer.MAX_VALUE);
             BigInteger intMin = BigInteger.valueOf(Integer.MIN_VALUE);
 
-            if (sizeTest.compareTo(intMax) < 0 && sizeTest.compareTo(intMin) > 0){
+            if (sizeTest.compareTo(intMax) < 0 && sizeTest.compareTo(intMin) > 0) {
                 minimum = Integer.parseInt(s);
 
-            }else{
+            } else {
                 maximum = 0;
                 minimum = 0;
             }
-
 
 
             String b = setMax.getText().toString();
             sizeTest = new BigInteger(b);
-            if (sizeTest.compareTo(intMax) < 0 && sizeTest.compareTo(intMin) > 0){
+            if (sizeTest.compareTo(intMax) < 0 && sizeTest.compareTo(intMin) > 0) {
                 maximum = Integer.parseInt(b);
 
-            }else{
+            } else {
                 maximum = 0;
                 minimum = 0;
             }
 
 
-            List<Integer> digitNums = nums.subList(0,reps);
-            Integer diff =  maximum - minimum;
-            debug.setText(' ' + String.valueOf(diff) + ' ' + String.valueOf(minimum) + ' ' + String.valueOf(maximum));
+            List<Integer> digitNums = nums.subList(0, reps);
+            Integer diff = maximum - minimum;
+            if (minimum < maximum && minimum >= 0) {
+                for (int i = 0; i < digitNums.size(); i++) {
 
 
-            if (minimum < maximum && minimum >= 0){
-            for(int i = 0; i < digitNums.size(); i++) {
+                    Double rand = new Double(digitNums.get(i));
+                    Double v = minimum + (diff) * rand / 65535;
 
+                    int in = Integer.valueOf((int) Math.round(v));
 
-                Double rand = new Double(digitNums.get(i));
-                Double v = minimum + (diff) * rand / 65535;
+                    if (real == true) {
+                        output = output + '\n' + v;
+                        currOutput = output;
+                    } else {
+                        output = output + '\n' + in;
+                        currOutput = output;
 
-                int in = Integer.valueOf((int) Math.round(v));
-
-             //   Toast.makeText(this, " " + in, Toast.LENGTH_SHORT).show();
-
-                if (real == true) {
-                    output = output + '\n' + String.valueOf(v);
-                    currOutput = output;
-                } else {
-
-
-                    output = output + '\n' + String.valueOf(in);
-                    currOutput = output;
-
+                    }
                 }
-            }
-
-
-                Toast.makeText(getApplicationContext(),
-                        "API Disabled\nManually Generated",
-                        Toast.LENGTH_SHORT).show();
-
-            }else{
+            } else {
                 output = "Boundary error" + '\n' + "Make sure the numbers are all greater than 0 and less than 2147483647" + '\n' + "Also make sure that Maximum is larger than Minimum";
                 currOutput = output;
 
             }
-
-
             textOutput.setText(output);
             currOutput = output;
-
-        }}
-
-
+        }
+    }
 
 
-    void manualGeneration(){
+    void manualGeneration() {
         nums = new ArrayList<>();
         Random rand = new Random();
-        for (int i = 0; i < 40; i++){
+        for (int i = 0; i < 40; i++) {
             int n = rand.nextInt(65535); //ANU Bound
             nums.add(n);
         }
     }
 
 
-    void processData(JSONArray data_array){
+    void processData(JSONArray data_array) {
         nums = new ArrayList<>();
         try {
-            if (data_array != null){
-            for(int i=0;i<data_array.length();i++){
-                int data = data_array.getInt(i);
-                debug.setText(  debug.getText() + "\n" + i + " is " + String.valueOf(data) + ". num mod 49 is " + data%49  );
-                // firstLottoNum.setText(String.valueOf(data));
-                nums.add(data);
-            }}
+            if (data_array != null) {
+                for (int i = 0; i < data_array.length(); i++) {
+                    int data = data_array.getInt(i);
+                    nums.add(data);
+                }
+            }
 
 
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
-
-
-        //  Toast.makeText(this, "Generated", Toast.LENGTH_SHORT).show();
-
     }
 
-
-    class RetrieveAPI extends AsyncTask<Void, Void, String> {
-
-        private Exception exception;
-        private ProgressDialog progDailog;
-
-        protected void onPreExecute() {
-            debug.setText("");
-            super.onPreExecute();
-            progDailog = new ProgressDialog(rng_activity.this);
-            progDailog.setMessage("Loading...");
-            progDailog.setIndeterminate(false);
-            progDailog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-            progDailog.setCancelable(true);
-            progDailog.show();
-        }
-
-        protected String doInBackground(Void... urls) {
-
-            String response = null;
-
-
-
-
-
-
-                ANU = true;
-
-                //try ANU Server
-                try {
-                    String API_URL = "https://qrng.anu.edu.au/API/jsonI.php?length=40&type=uint16";
-                    URL url = new URL(API_URL);
-                    HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-                    urlConnection.setConnectTimeout(5000);
-                    urlConnection.setReadTimeout(5000);
-                    try {
-                        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
-                        StringBuilder stringBuilder = new StringBuilder();
-                        String line;
-                        while ((line = bufferedReader.readLine()) != null) {
-                            stringBuilder.append(line).append("\n");
-                        }
-                        bufferedReader.close();
-                        response = stringBuilder.toString();
-                    } finally {
-                        urlConnection.disconnect();
-                    }
-
-                }catch (java.net.SocketTimeoutException e) {
-                    response = null;
-                }
-                catch (Exception e) {
-                    Log.e("ERROR", e.getMessage(), e);
-                    response = null;
-                }
-
-
-
-            return response;
-
-        }
-        protected void onPostExecute(String response) {
-
-            if (response == null) {
-                response = "ERROR";
-
-                Toast.makeText(getApplicationContext(),
-                        "API Call Failed\nManually Generated",
-                        Toast.LENGTH_SHORT).show();
-                manualGeneration();
-                setString();
-
-            } else {
-
-                Log.i("INFO", response);
-                debug.setText(response);
-
-                // Convert String to json object
-                JSONObject json = null;
-                try {
-
-                    json = new JSONObject(response);
-                    JSONArray data_array;
-                    if (ANU == false){
-                        data_array = json.getJSONArray("result"); //<< get value here
-
-                    }else {
-                        data_array = json.getJSONArray("data"); //<< get value here
-
-                    }
-                    processData(data_array);
-                    setString();
-
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-                Toast.makeText(getApplicationContext(),
-                        "API Call Success\nNumbers Generated",
-                        Toast.LENGTH_SHORT).show();
-            }
-            progDailog.dismiss();
-
-
-
-        }
-    }
 
 }

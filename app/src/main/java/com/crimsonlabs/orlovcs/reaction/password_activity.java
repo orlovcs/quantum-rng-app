@@ -3,6 +3,7 @@ package com.crimsonlabs.orlovcs.reaction;
 import android.app.ProgressDialog;
 import android.content.ClipData;
 import android.content.ClipboardManager;
+import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -161,6 +162,28 @@ public class password_activity extends AppCompatActivity implements OnItemClickL
             }
         });
 
+        final Context context = this;
+        final RetrieveAPIHelper helper = new RetrieveAPIHelper() {
+            @Override
+            public void onSuccess(JSONArray data_array) {
+                Toast.makeText(getApplicationContext(),
+                        "API Call Success\nNumbers Generated",
+                        Toast.LENGTH_SHORT).show();
+                processData(data_array);
+                setString();
+            }
+
+            @Override
+            public void onFail(String Response) {
+                Toast.makeText(getApplicationContext(),
+                        "API Call Failed\nManually Generated",
+                        Toast.LENGTH_SHORT).show();
+                manualGeneration();
+                setString();
+            }
+        };
+
+
         generateButon.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
@@ -178,7 +201,7 @@ public class password_activity extends AppCompatActivity implements OnItemClickL
                 }else{
                     textOutput.setText("");
                     currOutput = "";
-                    new RetrieveAPI().execute();
+                    new RetrieveAPI(context, helper).execute();
                 }
             }
         });
@@ -412,112 +435,5 @@ public class password_activity extends AppCompatActivity implements OnItemClickL
     }
 
 
-    class RetrieveAPI extends AsyncTask<Void, Void, String> {
-
-        private Exception exception;
-        private ProgressDialog progDailog;
-
-        protected void onPreExecute() {
-            debug.setText("");
-            super.onPreExecute();
-            progDailog = new ProgressDialog(password_activity.this);
-            progDailog.setMessage("Loading...");
-            progDailog.setIndeterminate(false);
-            progDailog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-            progDailog.setCancelable(true);
-            progDailog.show();
-        }
-
-        protected String doInBackground(Void... urls) {
-
-            String response = null;
-
-
-
-
-
-
-                ANU = true;
-
-                //try ANU Server
-                try {
-                    String API_URL = "https://qrng.anu.edu.au/API/jsonI.php?length=100&type=uint16";
-                    URL url = new URL(API_URL);
-                    HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-                    urlConnection.setConnectTimeout(5000);
-                    urlConnection.setReadTimeout(5000);
-                    try {
-                        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
-                        StringBuilder stringBuilder = new StringBuilder();
-                        String line;
-                        while ((line = bufferedReader.readLine()) != null) {
-                            stringBuilder.append(line).append("\n");
-                        }
-                        bufferedReader.close();
-                        response = stringBuilder.toString();
-                    } finally {
-                        urlConnection.disconnect();
-                    }
-
-                }catch (java.net.SocketTimeoutException e) {
-                    response = null;
-                }
-                catch (Exception e) {
-                    Log.e("ERROR", e.getMessage(), e);
-                    response = null;
-                }
-
-
-
-            return response;
-
-        }
-        protected void onPostExecute(String response) {
-
-            if (response == null) {
-                response = "ERROR";
-
-                Toast.makeText(getApplicationContext(),
-                        "API Call Failed\nManually Generated",
-                        Toast.LENGTH_SHORT).show();
-                manualGeneration();
-                setString();
-
-            } else {
-
-                Log.i("INFO", response);
-                debug.setText(response);
-
-                // Convert String to json object
-                JSONObject json = null;
-                try {
-
-                    json = new JSONObject(response);
-                    JSONArray data_array;
-                    if (ANU == false){
-                        data_array = json.getJSONArray("result"); //<< get value here
-
-                    }else {
-                        data_array = json.getJSONArray("data"); //<< get value here
-
-                    }
-                    processData(data_array);
-                    setString();
-
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-                Toast.makeText(getApplicationContext(),
-                        "API Call Success\nNumbers Generated",
-                        Toast.LENGTH_SHORT).show();
-            }
-            progDailog.dismiss();
-
-
-
-        }
-    }
 
 }

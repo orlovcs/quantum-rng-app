@@ -3,6 +3,7 @@ package com.crimsonlabs.orlovcs.reaction;
 import android.app.ProgressDialog;
 import android.content.ClipData;
 import android.content.ClipboardManager;
+import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -33,6 +34,7 @@ import java.util.List;
 import java.util.Random;
 
 
+
 public class lottery_activity extends AppCompatActivity implements OnItemClickListener, AdapterView.OnItemSelectedListener {
 
     TextView debug;
@@ -54,23 +56,45 @@ public class lottery_activity extends AppCompatActivity implements OnItemClickLi
 
 
         currOutput = "";
-        Button generateButon  = (Button) findViewById(R.id.generate);
+        Button generateButon  = findViewById(R.id.generate);
 
         nums = new ArrayList<>();
-        debug = (TextView) findViewById(R.id.textView2);
+        debug = findViewById(R.id.textView2);
         textOutput = findViewById(R.id.textOutput);
         textOutput.setTextIsSelectable(true);
         Spinner lottery_spinner = findViewById(R.id.lottery_spinner);
+
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,R.array.lottos,android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         lottery_spinner.setAdapter(adapter);
         lottery_spinner.setOnItemSelectedListener(this);
 
+        final Context context = this;
+        final RetrieveAPIHelper helper = new RetrieveAPIHelper() {
+            @Override
+            public void onSuccess(JSONArray data_array) {
+                Toast.makeText(getApplicationContext(),
+                        "API Call Success\nNumbers Generated",
+                        Toast.LENGTH_SHORT).show();
+                processData(data_array);
+                setString();
+            }
+
+            @Override
+            public void onFail(String Response) {
+                Toast.makeText(getApplicationContext(),
+                        "API Call Failed\nManually Generated",
+                        Toast.LENGTH_SHORT).show();
+                manualGeneration();
+                setString();
+            }
+        };
+
         generateButon.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
-                if (api == false){
+                if (!api){
                     Toast.makeText(getApplicationContext(),
                             "API Disabled\nManually Generated",
                             Toast.LENGTH_SHORT).show();
@@ -80,7 +104,8 @@ public class lottery_activity extends AppCompatActivity implements OnItemClickLi
                 }else{
                     textOutput.setText("");
                     currOutput = "";
-                    new RetrieveAPI().execute();
+                    new RetrieveAPI(context, helper).execute();
+
                 }
             }
         });
@@ -103,7 +128,7 @@ public class lottery_activity extends AppCompatActivity implements OnItemClickLi
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_api) {
 
-            if (api == true){
+            if (!api){
                 api = false;
                 Toast.makeText(getApplicationContext(),
                         "API Disabled",
@@ -119,7 +144,7 @@ public class lottery_activity extends AppCompatActivity implements OnItemClickLi
 
         }else if (id == R.id.action_copy){
 
-            if (currOutput != null && currOutput != "") {
+            if (currOutput != null && !currOutput.equals("")) {
 
                 final android.content.ClipboardManager clipboardManager = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
                 ClipData clipData = ClipData.newPlainText("Source Text", currOutput);
@@ -132,7 +157,7 @@ public class lottery_activity extends AppCompatActivity implements OnItemClickLi
         }else if (id == R.id.action_share){
 
 
-            if (currOutput != null && currOutput != "") {
+            if (currOutput != null  && !currOutput.equals("")) {
 
                 Intent newi  = new sharefunc(currOutput).i;
                 startActivity(Intent.createChooser(newi, "Share via"));
@@ -167,7 +192,7 @@ public class lottery_activity extends AppCompatActivity implements OnItemClickLi
 
     void setString(){
 
-        if (!nums.isEmpty() && nums!=null) {
+        if (!nums.isEmpty()) {
 
             Integer max = 0;
             Integer digits = 0;
@@ -344,7 +369,7 @@ public class lottery_activity extends AppCompatActivity implements OnItemClickLi
                         output = output + "-" + v;
                     }
                 }
-                if (bonus == true){
+                if (bonus){
                 for(int i = 0; i < bonuses;i++){
 
                     Integer v = bonusNums.get(i)%(bonusMax+1);
@@ -401,107 +426,6 @@ public class lottery_activity extends AppCompatActivity implements OnItemClickLi
     }
 
 
-    class RetrieveAPI extends AsyncTask<Void, Void, String> {
 
-        private Exception exception;
-        private ProgressDialog progDailog;
-
-        protected void onPreExecute() {
-            debug.setText("");
-            super.onPreExecute();
-            progDailog = new ProgressDialog(lottery_activity.this);
-            progDailog.setMessage("Loading...");
-            progDailog.setIndeterminate(false);
-            progDailog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-            progDailog.setCancelable(true);
-            progDailog.show();
-        }
-
-        protected String doInBackground(Void... urls) {
-
-            String response = null;
-                ANU = true;
-
-                //try ANU Server
-                try {
-                    String API_URL = "https://qrng.anu.edu.au/API/jsonI.php?length=40&type=uint16";
-                    URL url = new URL(API_URL);
-                    HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-                    urlConnection.setConnectTimeout(5000);
-                    urlConnection.setReadTimeout(5000);
-                    try {
-                        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
-                        StringBuilder stringBuilder = new StringBuilder();
-                        String line;
-                        while ((line = bufferedReader.readLine()) != null) {
-                            stringBuilder.append(line).append("\n");
-                        }
-                        bufferedReader.close();
-                        response = stringBuilder.toString();
-                    } finally {
-                        urlConnection.disconnect();
-                    }
-
-                }catch (java.net.SocketTimeoutException e) {
-                    response = null;
-                }
-                catch (Exception e) {
-                    Log.e("ERROR", e.getMessage(), e);
-                    response = null;
-                }
-
-
-
-
-        return response;
-
-        }
-        protected void onPostExecute(String response) {
-
-            if (response == null) {
-                response = "ERROR";
-
-                Toast.makeText(getApplicationContext(),
-                        "API Call Failed\nManually Generated",
-                        Toast.LENGTH_SHORT).show();
-                manualGeneration();
-                setString();
-
-            } else {
-
-                Log.i("INFO", response);
-                debug.setText(response);
-
-                // Convert String to json object
-                JSONObject json = null;
-                try {
-
-                    json = new JSONObject(response);
-                    JSONArray data_array;
-                    if (ANU == false){
-                         data_array = json.getJSONArray("result"); //<< get value here
-
-                    }else {
-                         data_array = json.getJSONArray("data"); //<< get value here
-
-                    }
-                    processData(data_array);
-                    setString();
-
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-                Toast.makeText(getApplicationContext(),
-                        "API Call Success\nNumbers Generated",
-                        Toast.LENGTH_SHORT).show();
-            }
-            progDailog.dismiss();
-
-
-
-        }
-    }
 
 }
