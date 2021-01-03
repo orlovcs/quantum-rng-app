@@ -120,6 +120,9 @@ public class rng_activity extends AppCompatActivity implements OnItemClickListen
             }
         });
 
+        final GenerationHelper generationHelper = new GenerationHelper();
+
+
         final Context context = this;
         final RetrieveAPIHelper helper = new RetrieveAPIHelper() {
             @Override
@@ -127,7 +130,7 @@ public class rng_activity extends AppCompatActivity implements OnItemClickListen
                 Toast.makeText(getApplicationContext(),
                         "API Call Success\nNumbers Generated",
                         Toast.LENGTH_SHORT).show();
-                processData(data_array);
+                nums = generationHelper.processData(data_array);
                 setString();
             }
 
@@ -136,7 +139,7 @@ public class rng_activity extends AppCompatActivity implements OnItemClickListen
                 Toast.makeText(getApplicationContext(),
                         "API Call Failed\nManually Generated",
                         Toast.LENGTH_SHORT).show();
-                manualGeneration();
+                nums = generationHelper.manualGeneration();
                 setString();
             }
         };
@@ -146,8 +149,7 @@ public class rng_activity extends AppCompatActivity implements OnItemClickListen
 
 
                 if (!api) {
-
-                    manualGeneration();
+                    nums = generationHelper.manualGeneration();
                     setString();
                 } else {
                     textOutput.setText("");
@@ -176,7 +178,7 @@ public class rng_activity extends AppCompatActivity implements OnItemClickListen
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_api) {
 
-            if (!api) {
+            if (api) {
                 api = false;
                 Toast.makeText(getApplicationContext(),
                         "API Disabled",
@@ -293,32 +295,6 @@ public class rng_activity extends AppCompatActivity implements OnItemClickListen
         }
     }
 
-
-    void manualGeneration() {
-        nums = new ArrayList<>();
-        Random rand = new Random();
-        for (int i = 0; i < 40; i++) {
-            int n = rand.nextInt(65535); //ANU Bound
-            nums.add(n);
-        }
-    }
-
-
-    void processData(JSONArray data_array) {
-        nums = new ArrayList<>();
-        try {
-            if (data_array != null) {
-                for (int i = 0; i < data_array.length(); i++) {
-                    int data = data_array.getInt(i);
-                    nums.add(data);
-                }
-            }
-
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-    }
 
 
 }

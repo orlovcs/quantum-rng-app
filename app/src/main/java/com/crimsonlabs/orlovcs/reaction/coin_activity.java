@@ -62,6 +62,7 @@ public class coin_activity extends AppCompatActivity implements OnItemClickListe
         textOutput = findViewById(R.id.coin_output);
         textOutput.setTextIsSelectable(true);
 
+        final GenerationHelper generationHelper = new GenerationHelper();
 
 
         Spinner coin_spinner = findViewById(R.id.coin_spinner);
@@ -83,7 +84,7 @@ public class coin_activity extends AppCompatActivity implements OnItemClickListe
                 Toast.makeText(getApplicationContext(),
                         "API Call Success\nNumbers Generated",
                         Toast.LENGTH_SHORT).show();
-                processData(data_array);
+                nums = generationHelper.processData(data_array);
                 setString();
             }
 
@@ -92,7 +93,7 @@ public class coin_activity extends AppCompatActivity implements OnItemClickListe
                 Toast.makeText(getApplicationContext(),
                         "API Call Failed\nManually Generated",
                         Toast.LENGTH_SHORT).show();
-                manualGeneration();
+                nums = generationHelper.manualGeneration();
                 setString();
             }
         };
@@ -103,7 +104,7 @@ public class coin_activity extends AppCompatActivity implements OnItemClickListe
                     Toast.makeText(getApplicationContext(),
                             "API Disabled\nManually Generated",
                             Toast.LENGTH_SHORT).show();
-                    manualGeneration();
+                    nums = generationHelper.manualGeneration();
                     setString();
                 }else{
                     textOutput.setText("");
@@ -131,7 +132,7 @@ public class coin_activity extends AppCompatActivity implements OnItemClickListe
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_api) {
 
-            if (api == true){
+            if (api){
                 api = false;
                 Toast.makeText(getApplicationContext(),
                         "API Disabled",
@@ -284,33 +285,6 @@ public class coin_activity extends AppCompatActivity implements OnItemClickListe
 
         }}
 
-    void manualGeneration(){
-        nums = new ArrayList<>();
-        Random rand = new Random();
-        for (int i = 0; i < 40; i++){
-            int n = rand.nextInt(65535); //ANU Bound
-            nums.add(n);
-        }
-    }
-
-
-    void processData(JSONArray data_array){
-        nums = new ArrayList<>();
-        try {
-            if (data_array != null){
-            for(int i=0;i<data_array.length();i++){
-                int data = data_array.getInt(i);
-                debug.setText(  debug.getText() + "\n" + i + " is " + String.valueOf(data) + ". num mod 49 is " + data%49  );
-                // firstLottoNum.setText(String.valueOf(data));
-                nums.add(data);
-            }}
-
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-    }
 
 
 
