@@ -25,10 +25,12 @@ Good Luck!
 - App is not indexable by Google Search; consider adding at least one Activity with an ACTION-VIEW intent-filler
 - randomized password slider menu option
 - coin flip history and total counter
+- Add Tattslotto
+- Add 6/45 Korea Lottery
 
 # done
 - add manual random gen fall back make toasts to notofy if true random generated or manual fallback
-- give option to turn off the api
+- give option to turn off the apis
 - add multiple dice rolls, maybe 3
 - How many coins?
 - give # heads, #of tails
