@@ -35,7 +35,7 @@ import java.util.Random;
 
 
 
-public class lottery_activity extends AppCompatActivity implements OnItemClickListener, AdapterView.OnItemSelectedListener {
+public class lottery_activity extends MainActivity implements OnItemClickListener, AdapterView.OnItemSelectedListener {
 
     TextView debug;
     EditText firstLottoNum;

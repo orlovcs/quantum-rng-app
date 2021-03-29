@@ -1,11 +1,33 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.MaterialComponents">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+
+    </style>
+
+    <!--Theme 2: Dark Theme + some more color attributes-->
+    <style name="AppTheme.Dark" parent="Theme.MaterialComponents">
+        <item name="colorPrimary">#66BB6A</item>
+        <item name="colorPrimaryDark">#549C57</item>
+        <item name="colorAccent">#0086D4</item>
+        <item name="colorSecondary">#00796B</item>
+        <item name="colorError">#B2002A</item>
+    </style>
+
+    <!-- Cyan application theme. -->
+    <style name="AppTheme.Original" parent="AppTheme">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorPrimary">@color/colorPrimaryCyan</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDarkCyan</item>
+        <item name="colorAccent">@color/colorAccentCyan</item>
+    </style>
+
+    <!-- Cyan application theme. -->
+    <style name="AppTheme.Cyan" parent="AppTheme">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimaryCyan</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDarkCyan</item>
+        <item name="colorAccent">@color/colorAccentCyan</item>
     </style>
 
     <style name="AppTheme.NoActionBar">

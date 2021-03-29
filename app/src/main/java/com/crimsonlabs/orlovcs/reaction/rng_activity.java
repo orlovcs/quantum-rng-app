@@ -26,7 +26,7 @@ import java.util.List;
 import java.util.Random;
 
 
-public class rng_activity extends AppCompatActivity implements OnItemClickListener, AdapterView.OnItemSelectedListener {
+public class rng_activity extends MainActivity implements OnItemClickListener, AdapterView.OnItemSelectedListener {
 
     TextView debug;
     TextView textOutput;

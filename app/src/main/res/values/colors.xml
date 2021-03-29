@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <!-- Original Theme Colors -->
     <color name="colorPrimary">#3b3b3b</color>
     <color name="colorPrimaryDark">#303030</color>
     <color name="colorAccent">#D81B60</color>
+
+    <!-- Cyan Theme Colors -->
+    <color name="colorPrimaryCyan">#26c6da</color>
+    <color name="colorPrimaryDarkCyan">#0095a8</color>
+    <color name="colorAccentCyan">#ffca28</color>
+
 </resources>
