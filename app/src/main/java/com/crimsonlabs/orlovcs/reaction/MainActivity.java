@@ -2,7 +2,6 @@ package com.crimsonlabs.orlovcs.reaction;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -24,68 +23,63 @@ public class MainActivity extends BaseActivity {
         setTheme();
         setContentView(R.layout.first_layout);
 
-        Button six = findViewById(R.id.menu_649);
-        Button pswd = findViewById(R.id.menu_custom);
-        Button dice = findViewById(R.id.menu_dice);
+        Button lotteryMenuButton = findViewById(R.id.menu_649);
+        Button passwordMenuButton = findViewById(R.id.menu_custom);
+        Button diceMenuButton = findViewById(R.id.menu_dice);
+        Button coinMenuButton = findViewById(R.id.menu_coin);
+        Button numbersMenuButton = findViewById(R.id.menu_rng);
+        Button themeMenuButton = findViewById(R.id.menu_theme);
+        Button aboutMenuButton = findViewById(R.id.menu_about);
 
-        Button coin = findViewById(R.id.menu_coin);
-        Button rng = findViewById(R.id.menu_rng);
-
-        Button about = findViewById(R.id.menu_about);
-
-        six.setOnClickListener(new View.OnClickListener(){
+        lotteryMenuButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-
                 Intent intent = new Intent(v.getContext(), lottery_activity.class);
                 startActivity(intent);
             }
-
         });
 
-        dice.setOnClickListener(new View.OnClickListener(){
+        diceMenuButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-
                 Intent intent = new Intent(v.getContext(), dice_activity.class);
                 startActivity(intent);
             }
 
         });
 
-        pswd.setOnClickListener(new View.OnClickListener(){
+        passwordMenuButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-
                 Intent intent = new Intent(v.getContext(), password_activity.class);
                 startActivity(intent);
             }
-
         });
 
-
-        coin.setOnClickListener(new View.OnClickListener(){
+        coinMenuButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-
                 Intent intent = new Intent(v.getContext(), coin_activity.class);
                 startActivity(intent);
             }
-
         });
 
-        rng.setOnClickListener(new View.OnClickListener(){
+        numbersMenuButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-
                 Intent intent = new Intent(v.getContext(), rng_activity.class);
                 startActivity(intent);
             }
-
         });
 
-        about.setOnClickListener(new View.OnClickListener(){
+        themeMenuButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-
-                Intent intent = new Intent(v.getContext(), about_activity.class);
+                Intent intent = new Intent(v.getContext(), theme_activity.class);
                 startActivity(intent);
             }
 
+        });
+
+        aboutMenuButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), about_activity.class);
+                startActivity(intent);
+            }
         });
     }
 

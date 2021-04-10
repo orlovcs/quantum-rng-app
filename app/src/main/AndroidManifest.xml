@@ -61,6 +61,13 @@
         </activity>
 
         <activity
+            android:label="Themes"
+            android:name="com.crimsonlabs.orlovcs.reaction.theme_activity"
+            android:parentActivityName="com.crimsonlabs.orlovcs.reaction.MainActivity"
+            >
+        </activity>
+
+        <activity
             android:label="About"
             android:name="com.crimsonlabs.orlovcs.reaction.about_activity"
             android:parentActivityName="com.crimsonlabs.orlovcs.reaction.MainActivity"

@@ -68,6 +68,15 @@
             tools:text="PASSWORDS" />
 
         <Button
+            android:id="@+id/menu_theme"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/abel"
+            android:text="THEMES"
+            android:textSize="18sp"
+            tools:text="THEMES" />
+
+        <Button
             android:id="@+id/menu_about"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
