@@ -29,7 +29,7 @@ public class theme_activity extends MainActivity  {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // Set Content View
-        setContentView(R.layout.rng_layout);
+        setContentView(R.layout.themes_layout);
     }
 
 }
