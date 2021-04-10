@@ -17,9 +17,9 @@
     <!-- Cyan application theme. -->
     <style name="AppTheme.Original" parent="AppTheme">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimaryCyan</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDarkCyan</item>
-        <item name="colorAccent">@color/colorAccentCyan</item>
+        <item name="colorPrimary">@color/colorPrimaryDark</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
     </style>
 
     <!-- Cyan application theme. -->

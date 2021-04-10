@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.os.PersistableBundle
 import android.preference.PreferenceManager
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 
 abstract class BaseActivity : AppCompatActivity() {
 
@@ -15,14 +16,16 @@ abstract class BaseActivity : AppCompatActivity() {
         private const val ORIGINAL = R.style.AppTheme_Original
         private const val CYAN = R.style.AppTheme_Cyan
     }
-
-    override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
-        currentTheme = PreferenceManager.getDefaultSharedPreferences(this).getInt(KEY_THEME, ORIGINAL)
+    protected override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        currentTheme = PreferenceManager.getDefaultSharedPreferences(this).getInt(KEY_THEME, ORIGINAL)
+        Log.i("BASE CREATE", currentTheme.toString())
     }
-
     protected fun setTheme() {
         setTheme(currentTheme)
+    }
+    protected fun baseRecreate() {
+        recreate()
     }
     protected fun switchTheme(){
         currentTheme = when(currentTheme) {
