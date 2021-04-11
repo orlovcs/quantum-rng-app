@@ -31,6 +31,7 @@ public class ScreenSlidePageFragment extends Fragment {
         ViewGroup rootView = (ViewGroup) inflater.inflate(
                 layout, container, false);
 
+
         return rootView;
     }
 }

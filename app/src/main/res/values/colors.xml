@@ -5,6 +5,7 @@
     <color name="colorPrimary">#3b3b3b</color>
     <color name="colorPrimaryDark">#303030</color>
     <color name="colorAccent">#D81B60</color>
+    <color name="colorPrimaryText">#FFFF</color>
 
     <!-- Cyan Theme Colors -->
     <color name="colorPrimaryCyan">#26c6da</color>
