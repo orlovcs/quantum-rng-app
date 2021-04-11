@@ -1,6 +1,7 @@
 package com.crimsonlabs.orlovcs.reaction;
 
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.View;
 
 import androidx.fragment.app.FragmentActivity;
@@ -82,7 +83,7 @@ public class theme_activity extends FragmentActivity {
 
         @Override
         public Fragment getItem(int position) {
-            return new ScreenSlidePageFragment();
+            return new ScreenSlidePageFragment(position);
         }
 
         @Override
