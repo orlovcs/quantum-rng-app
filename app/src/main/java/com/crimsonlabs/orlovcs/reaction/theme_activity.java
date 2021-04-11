@@ -2,7 +2,10 @@ package com.crimsonlabs.orlovcs.reaction;
 
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentStatePagerAdapter;
@@ -102,6 +105,14 @@ public class theme_activity extends FragmentActivity {
         mPager.setPageTransformer(true, new ZoomOutPageTransformer());
         pagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager());
         mPager.setAdapter(pagerAdapter);
+
+        Button selectThemeButton  = findViewById(R.id.selectThemeButton);
+        selectThemeButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Log.i("RRE", "PRESSED");
+            }
+        });
+
     }
 
     @Override

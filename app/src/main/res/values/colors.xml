@@ -7,6 +7,13 @@
     <color name="colorAccent">#D81B60</color>
     <color name="colorPrimaryText">#FFFF</color>
 
+    <!-- Original Theme Colors -->
+    <color name="colorPrimaryPure">#000000</color>
+    <color name="colorPrimaryDarkPure">#000000</color>
+    <color name="colorAccentPure">#000000</color>
+    <color name="colorPrimaryTextPure">#FFFF</color>
+    <color name="colorBackgroundPure">#000000</color>
+
     <!-- Cyan Theme Colors -->
     <color name="colorPrimaryCyan">#26c6da</color>
     <color name="colorPrimaryDarkCyan">#0095a8</color>

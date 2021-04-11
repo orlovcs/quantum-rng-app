@@ -15,6 +15,18 @@
     </style>
 
     <!-- Cyan application theme. -->
+    <style name="AppTheme.PureBlack" parent="AppTheme">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">#000000</item>
+        <item name="colorPrimaryDark">#000000</item>
+        <item name="colorAccent">#FFFF</item>
+        <item name="android:textColor">@color/colorPrimaryText</item>
+        <item name="android:colorBackground">@color/colorBackgroundPure</item>
+        <item name="colorSecondary">#00796B</item>
+        <item name="colorError">#B2002A</item>
+    </style>
+
+    <!-- Cyan application theme. -->
     <style name="AppTheme.Original" parent="AppTheme">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
