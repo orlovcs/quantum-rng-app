@@ -30,6 +30,7 @@
         <item name="colorPrimary">@color/colorPrimaryCyan</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDarkCyan</item>
         <item name="colorAccent">@color/colorAccentCyan</item>
+        <item name="android:colorBackground">@color/colorPrimaryDark</item>
     </style>
 
     <style name="AppTheme.NoActionBar">

@@ -19,13 +19,13 @@ public class ScreenSlidePageFragment extends Fragment {
         int layout;
         switch(theme_index) {
             case 0:
-                layout = R.layout.fragment_screen_slide_page;
+                layout = R.layout.fragment_screen_slide_page_original;
                 break;
             case 1:
-                layout = R.layout.fragment_screen_slide_page;
+                layout = R.layout.fragment_screen_slide_page_cyan;
                 break;
             default:
-                layout = R.layout.fragment_screen_slide_page;
+                layout = R.layout.fragment_screen_slide_page_original;
         }
 
         ViewGroup rootView = (ViewGroup) inflater.inflate(
