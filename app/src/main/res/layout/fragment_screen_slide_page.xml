@@ -60,6 +60,8 @@
             android:id="@+id/lottery_spinner"
             android:layout_width="match_parent"
             android:layout_height="39dp"
+            android:clickable="false"
+            android:entries="@array/lottos"
             android:spinnerMode="dropdown" />
 
     </LinearLayout>
