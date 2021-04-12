@@ -90,7 +90,7 @@
         <item name="colorPrimary">#7a04eb</item>
         <item name="colorPrimaryDark">#120458</item>
         <item name="colorAccent">#7a04eb</item>
-        <item name="android:textColor">#FFFF</item>
+        <item name="android:textColor">@color/colorPrimaryTextMidnight</item>
         <item name="android:colorBackground">#120458</item>
 
     </style>

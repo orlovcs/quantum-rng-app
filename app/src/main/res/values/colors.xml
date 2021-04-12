@@ -31,6 +31,12 @@
     <color name="colorPrimaryTextForest">#FFFF</color>
     <color name="colorBackgroundForest">#023436</color>
 
+    <color name="colorPrimaryMidnight">#7a04eb</color>
+    <color name="colorPrimaryDarkMidnight">#120458</color>
+    <color name="colorAccentMidnight">#7a04eb</color>
+    <color name="colorPrimaryTextMidnight">#ff6e27</color>
+    <color name="colorBackgroundMidnight">#120458</color>
+
     <color name="colorPrimaryCyberpunk">#fe00fe</color>
     <color name="colorPrimaryDarkCyberpunk">#7700a6</color>
     <color name="colorAccentCyberpunk">#00AAA1</color>
