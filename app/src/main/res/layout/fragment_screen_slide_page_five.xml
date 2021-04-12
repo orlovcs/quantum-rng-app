@@ -45,7 +45,7 @@
                         android:layout_marginStart="15dp"
                         android:layout_marginTop="15dp"
                         android:fontFamily="sans-serif"
-                        android:text="Cyan"
+                        android:text="Forest"
                         android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
                         android:textSize="21sp" />
                 </FrameLayout>

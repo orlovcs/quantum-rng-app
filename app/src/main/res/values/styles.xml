@@ -44,33 +44,36 @@
 
     <style name="AppTheme.ThemeThree" parent="AppTheme">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorPrimary">#48cae4</item>
+        <item name="colorPrimaryDark">#0096c7</item>
+        <item name="colorAccent">#0096c7</item>
         <item name="android:textColor">@color/colorPrimaryText</item>
+        <item name="android:colorBackground">#0077b6</item>
     </style>
 
     <style name="AppTheme.ThemeFour" parent="AppTheme">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorPrimary">#48cae4</item>
+        <item name="colorPrimaryDark">#0096c7</item>
+        <item name="colorAccent">#0096c7</item>
         <item name="android:textColor">@color/colorPrimaryText</item>
     </style>
 
     <style name="AppTheme.ThemeFive" parent="AppTheme">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorPrimary">#006d77</item>
+        <item name="colorPrimaryDark">#023436</item>
+        <item name="colorAccent">#049a8f</item>
         <item name="android:textColor">@color/colorPrimaryText</item>
+        <item name="android:colorBackground">#023436</item>
     </style>
 
     <style name="AppTheme.ThemeSix" parent="AppTheme">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">#006d77</item>
+        <item name="colorPrimaryDark">#023436</item>
+        <item name="colorAccent">#049a8f</item>
         <item name="android:textColor">@color/colorPrimaryText</item>
     </style>
 

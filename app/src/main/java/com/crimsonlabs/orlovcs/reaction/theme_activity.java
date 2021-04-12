@@ -24,7 +24,7 @@ public class theme_activity extends FragmentActivity {
     /**
      * The number of pages (wizard steps) to show in this demo.
      */
-    private static final int NUM_PAGES = 5;
+    private static final int NUM_PAGES = 9;
 
     /**
      * The pager widget, which handles animation and allows swiping horizontally to access previous
@@ -32,7 +32,6 @@ public class theme_activity extends FragmentActivity {
      */
     private ViewPager mPager;
 
-    private static int CURRENT_PAGE = 0;
 
     /**
      * The pager adapter, which provides the pages to the view pager widget.
@@ -104,7 +103,6 @@ public class theme_activity extends FragmentActivity {
 
         @Override
         public Fragment getItem(int position) {
-            CURRENT_PAGE = position;
             return new ScreenSlidePageFragment(position);
         }
 
