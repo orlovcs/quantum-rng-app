@@ -13,7 +13,7 @@ abstract class BaseActivity : AppCompatActivity() {
 
     companion object {
         private const val KEY_THEME = "Theme"
-        private const val ORIGINAL = R.style.AppTheme_Original
+        private const val ORIGINAL = R.style.AppTheme_ThemeOne
         private const val CYAN = R.style.AppTheme_Cyan
     }
     protected override fun onCreate(savedInstanceState: Bundle?) {

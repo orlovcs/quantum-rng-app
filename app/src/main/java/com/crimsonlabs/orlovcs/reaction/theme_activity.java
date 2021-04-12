@@ -1,5 +1,7 @@
 package com.crimsonlabs.orlovcs.reaction;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
@@ -15,6 +17,7 @@ import androidx.viewpager.widget.ViewPager;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
+import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 
 
 public class theme_activity extends FragmentActivity {
@@ -28,6 +31,8 @@ public class theme_activity extends FragmentActivity {
      * and next wizard steps.
      */
     private ViewPager mPager;
+
+    private static int CURRENT_PAGE = 0;
 
     /**
      * The pager adapter, which provides the pages to the view pager widget.
@@ -80,12 +85,26 @@ public class theme_activity extends FragmentActivity {
      * sequence.
      */
     private class ScreenSlidePagerAdapter extends FragmentStatePagerAdapter {
+
+        final int ORIGINAL = R.style.AppTheme_ThemeOne;
+        final int TWO = R.style.AppTheme_ThemeOne;
+        final int THREE = R.style.AppTheme_ThemeOne;
+        final int FOUR = R.style.AppTheme_ThemeOne;
+        final int FIVE = R.style.AppTheme_ThemeOne;
+        final int SIX = R.style.AppTheme_ThemeOne;
+        final int SEVEN = R.style.AppTheme_ThemeOne;
+        final int EIGHT = R.style.AppTheme_ThemeOne;
+        final int NINE = R.style.AppTheme_ThemeOne;
+        final int TEN = R.style.AppTheme_ThemeOne;
+
+
         public ScreenSlidePagerAdapter(FragmentManager fm) {
             super(fm);
         }
 
         @Override
         public Fragment getItem(int position) {
+            CURRENT_PAGE = position;
             return new ScreenSlidePageFragment(position);
         }
 
@@ -98,6 +117,12 @@ public class theme_activity extends FragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        final String KEY_THEME = "Theme";
+        final int ORIGINAL = R.style.AppTheme_ThemeOne;
+        int currentTheme = PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).getInt(KEY_THEME, ORIGINAL);
+        setTheme(currentTheme);
+
         // Set Content View
         setContentView(R.layout.themes_layout);
         // Instantiate a ViewPager and a PagerAdapter.
@@ -106,10 +131,48 @@ public class theme_activity extends FragmentActivity {
         pagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager());
         mPager.setAdapter(pagerAdapter);
 
+
+
         Button selectThemeButton  = findViewById(R.id.selectThemeButton);
         selectThemeButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Log.i("RRE", "PRESSED");
+
+                int layout;
+                switch(mPager.getCurrentItem()) {
+                    case 0:
+                        layout = R.style.AppTheme_ThemeOne;
+                        break;
+                    case 1:
+                        layout = R.style.AppTheme_ThemeTwo;
+                        break;
+                    case 2:
+                        layout = R.style.AppTheme_ThemeThree;
+                        break;
+                    case 3:
+                        layout = R.style.AppTheme_ThemeFour;
+                        break;
+                    case 4:
+                        layout = R.style.AppTheme_ThemeFive;
+                        break;
+                    case 5:
+                        layout = R.style.AppTheme_ThemeSix;
+                        break;
+                    case 6:
+                        layout = R.style.AppTheme_ThemeSeven;
+                        break;
+                    case 7:
+                        layout = R.style.AppTheme_ThemeEight;
+                        break;
+                    case 8:
+                        layout = R.style.AppTheme_ThemeNine;
+                        break;
+                    default:
+                        layout = R.style.AppTheme_ThemeOne;
+                }
+                Log.i("PAGE PRESSED", ":"+layout);
+                PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit().putInt(KEY_THEME, layout).apply();
+                Intent intent = new Intent(v.getContext(), MainActivity.class);
+                startActivity(intent);
             }
         });
 

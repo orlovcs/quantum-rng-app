@@ -18,7 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/colorPrimaryDark"
-            android:theme="@style/AppTheme.Original">
+           >
 
 
             <LinearLayout
@@ -71,7 +71,7 @@
                     android:clickable="false"
                     android:entries="@array/lottos"
                     android:spinnerMode="dropdown"
-                    android:theme="@style/AppTheme.Original" />
+               />
 
             </LinearLayout>
 
