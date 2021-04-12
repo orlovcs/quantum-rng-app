@@ -79,26 +79,30 @@
 
     <style name="AppTheme.ThemeSeven" parent="AppTheme">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:textColor">@color/colorPrimaryText</item>
+        <item name="colorPrimary">#fe00fe</item>
+        <item name="colorPrimaryDark">#7700a6</item>
+        <item name="colorAccent">#00AAA1</item>
+        <item name="android:colorBackground">#0A0A0A</item>
     </style>
 
     <style name="AppTheme.ThemeEight" parent="AppTheme">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:textColor">@color/colorPrimaryText</item>
+        <item name="colorPrimary">#7a04eb</item>
+        <item name="colorPrimaryDark">#120458</item>
+        <item name="colorAccent">#7a04eb</item>
+        <item name="android:textColor">#FFFF</item>
+        <item name="android:colorBackground">#120458</item>
+
     </style>
 
     <style name="AppTheme.ThemeNine" parent="AppTheme">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorPrimary">@color/colorBackgroundPure</item>
+        <item name="colorPrimaryDark">@color/colorBackgroundPure</item>
+        <item name="colorAccent">@color/colorPrimaryText</item>
         <item name="android:textColor">@color/colorPrimaryText</item>
+        <item name="android:colorBackground">@color/colorBackgroundPure</item>
+
     </style>
 
     <!-- Cyan application theme. -->

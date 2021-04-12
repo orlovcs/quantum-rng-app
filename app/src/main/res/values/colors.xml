@@ -19,4 +19,23 @@
     <color name="colorPrimaryDarkCyan">#0095a8</color>
     <color name="colorAccentCyan">#ffca28</color>
 
+    <color name="colorPrimaryOcean">#48cae4</color>
+    <color name="colorPrimaryDarkOcean">#0096c7</color>
+    <color name="colorAccentOcean">#0096c7</color>
+    <color name="colorPrimaryTextOcean">#FFFF</color>
+    <color name="colorBackgroundOcean">#0077b6</color>
+
+    <color name="colorPrimaryForest">#006d77</color>
+    <color name="colorPrimaryDarkForest">#023436</color>
+    <color name="colorAccentForest">#049a8f</color>
+    <color name="colorPrimaryTextForest">#FFFF</color>
+    <color name="colorBackgroundForest">#023436</color>
+
+    <color name="colorPrimaryCyberpunk">#fe00fe</color>
+    <color name="colorPrimaryDarkCyberpunk">#7700a6</color>
+    <color name="colorAccentCyberpunk">#00AAA1</color>
+    <color name="colorPrimaryTextCyberpunk">#FFFF</color>
+    <color name="colorBackgroundCyberpunk">#0A0A0A</color>
+
+
 </resources>

@@ -17,7 +17,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/colorPrimaryDark"
+            android:background="@color/colorBackgroundCyberpunk"
             android:theme="@style/AppTheme.Cyan">
 
 
@@ -25,6 +25,7 @@
                 android:id="@+id/linearLayout5"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@color/colorBackgroundCyberpunk"
                 android:orientation="vertical"
                 app:layout_constraintTop_toTopOf="parent">
 
@@ -36,7 +37,7 @@
                         android:id="@+id/themeNameBackGround"
                         android:layout_width="match_parent"
                         android:layout_height="?android:attr/actionBarSize"
-                        android:background="@color/colorPrimaryCyan" />
+                        android:background="@color/colorPrimaryCyberpunk" />
 
                     <TextView
                         android:id="@+id/textView24"
@@ -45,7 +46,7 @@
                         android:layout_marginStart="15dp"
                         android:layout_marginTop="15dp"
                         android:fontFamily="sans-serif"
-                        android:text="Cyan"
+                        android:text="Cyberpunk"
                         android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
                         android:textSize="21sp" />
                 </FrameLayout>
@@ -87,7 +88,7 @@
                 android:fontFamily="@font/abel"
                 android:text="42-1-32-1-24-41-(23)"
                 android:textAlignment="center"
-                android:textColor="@color/colorAccentCyan"
+                android:textColor="@color/colorPrimaryCyberpunk"
                 android:textIsSelectable="true"
                 android:textSize="32dp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -102,16 +103,13 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="149dp"
                 android:layout_marginBottom="24dp"
-                android:background="@color/colorAccentCyan"
+                android:background="@color/colorAccentCyberpunk"
                 android:text="Generate"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textOutput" />
-
-
-
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
