@@ -1,17 +1,28 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-android'
-
+// USEFUL: Auto version update
 android {
-    compileSdkVersion 28
-    defaultConfig {
-        applicationId 'com.crimsonlabs.orlovcs.reaction'
-        minSdkVersion 21
-        targetSdkVersion 28
-        versionCode 9
-        versionName "4"
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-    }
+    compileSdkVersion 29
+    def versionPropsFile = file('version.properties')
+
+        def Properties versionProps = new Properties()
+
+        versionProps.load(new FileInputStream(versionPropsFile))
+
+        def code = versionProps['VERSION_CODE'].toInteger() + 1
+
+        versionProps['VERSION_CODE']=code.toString()
+        versionProps.store(versionPropsFile.newWriter(), null)
+
+        defaultConfig {
+            versionCode code
+            versionName "1.1"
+            minSdkVersion 21
+            targetSdkVersion 29
+        }
+
+
     buildTypes {
         release {
             minifyEnabled false
@@ -23,6 +34,8 @@ android {
 }
 
 dependencies {
+    def billing_version = "3.0.0"
+    implementation "com.android.billingclient:billing:$billing_version"
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'androidx.appcompat:appcompat:1.0.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
