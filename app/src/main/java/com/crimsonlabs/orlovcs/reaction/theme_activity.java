@@ -28,13 +28,13 @@ import androidx.fragment.app.FragmentManager;
 import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 
 
-public class theme_activity extends FragmentActivity {
+public class theme_activity extends MainActivity {
 
 
     /**
      * The number of pages (wizard steps) to show in this demo.
      */
-    private static final int NUM_PAGES = 9;
+    private static final int NUM_PAGES = 2;
 
     static boolean CURRENT_THEME_AVAILABLE = false;
 
@@ -132,17 +132,12 @@ public class theme_activity extends FragmentActivity {
 
 
 
-        //PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).getInt("Purchased", ORIGINAL);
-
-        //  PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit().putInt(KEY_THEME, currentTheme).apply()
 
         final String KEY_THEME = "Theme";
         final int ORIGINAL = R.style.AppTheme_ThemeOne;
         int currentTheme = PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).getInt(KEY_THEME, ORIGINAL);
-        setTheme(currentTheme);
+        //setTheme(currentTheme);
 
-
-        final String payment_required = "$0.99";
         final String theme_available = "Set Theme";
 
 
@@ -162,12 +157,7 @@ public class theme_activity extends FragmentActivity {
                 if(isThemeAvailable){
                     selectThemeButton.setText(theme_available);
                     CURRENT_THEME_AVAILABLE = true;
-                }else{
-                    selectThemeButton.setText(payment_required);
-                    CURRENT_THEME_AVAILABLE = false;
                 }
-                Log.i("PURCHASE PAGER", "PAGER"+position);
-
                 selectThemeButton.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
 
@@ -179,49 +169,15 @@ public class theme_activity extends FragmentActivity {
                             case 1:
                                 layout = R.style.AppTheme_ThemeTwo;
                                 break;
-                            case 2:
-                                layout = R.style.AppTheme_ThemeThree;
-                                break;
-                            case 3:
-                                layout = R.style.AppTheme_ThemeFour;
-                                break;
-                            case 4:
-                                layout = R.style.AppTheme_ThemeFive;
-                                break;
-                            case 5:
-                                layout = R.style.AppTheme_ThemeSix;
-                                break;
-                            case 6:
-                                layout = R.style.AppTheme_ThemeSeven;
-                                break;
-                            case 7:
-                                layout = R.style.AppTheme_ThemeEight;
-                                break;
-                            case 8:
-                                layout = R.style.AppTheme_ThemeNine;
-                                break;
                             default:
                                 layout = R.style.AppTheme_ThemeOne;
                         }
-                        Log.i("PAGE PRESSED", ":"+layout);
-
                         if (CURRENT_THEME_AVAILABLE){
                             //Set the bought theme
                             PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit().putInt(KEY_THEME, layout).apply();
                             Intent intent = new Intent(v.getContext(), MainActivity.class);
                             startActivity(intent);
-                        }else{
-                            //Buy the theme
-                             Log.i("PURCHASE INIT BUY FOR", "amoledtheme");
-//                             beginThemePurchase("amoledtheme");
-
-
-                             //PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit().putBoolean("theme_"+position, true).commit();
-
-
                         }
-
-
                     }
                 });
 

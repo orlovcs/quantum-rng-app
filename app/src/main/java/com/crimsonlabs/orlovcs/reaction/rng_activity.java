@@ -54,7 +54,7 @@ public class rng_activity extends MainActivity implements OnItemClickListener, A
 
         currOutput = "";
 
-        Button generateButon = findViewById(R.id.generate_rng);
+        Button generateButton = findViewById(R.id.generate_rng);
 
         nums = new ArrayList<>();
         debug = findViewById(R.id.textView5);
@@ -142,7 +142,7 @@ public class rng_activity extends MainActivity implements OnItemClickListener, A
             }
         };
 
-        generateButon.setOnClickListener(new View.OnClickListener() {
+        generateButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
 
