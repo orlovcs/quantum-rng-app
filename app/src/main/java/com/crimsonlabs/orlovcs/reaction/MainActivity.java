@@ -1,7 +1,10 @@
 package com.crimsonlabs.orlovcs.reaction;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -9,6 +12,8 @@ import android.widget.TableRow;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class MainActivity extends BaseActivity {
 
@@ -20,6 +25,36 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        if(!prefs.getBoolean("themeKeysSet", false)) {
+
+            SharedPreferences.Editor editor = prefs.edit();
+
+            //init themeKeys one time after installation
+
+            Map<Integer, Boolean> themeKeys = new HashMap<Integer, Boolean>();
+            themeKeys.put(1, true);
+            themeKeys.put(2, false);
+            themeKeys.put(3, false);
+            themeKeys.put(4, false);
+            themeKeys.put(5, false);
+            themeKeys.put(6, false);
+            themeKeys.put(7, false);
+            themeKeys.put(8, false);
+            themeKeys.put(9, false);
+
+            for (Map.Entry<Integer, Boolean> pair: themeKeys.entrySet()) {
+                Log.i("PURCHASE THEME HASH MAP", pair.getKey().toString() + pair.getValue().toString());
+                editor.putBoolean("theme_"+pair.getKey().toString(), pair.getValue());
+            }
+
+
+            editor.putBoolean("themeKeysSet", true);
+            editor.commit();
+        }
+
+
         setTheme();
         setContentView(R.layout.first_layout);
 
