@@ -3,19 +3,21 @@ package com.crimsonlabs.orlovcs.reaction;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
+import android.widget.TextView;
+
 import androidx.fragment.app.Fragment;
 
 public class ScreenSlidePageFragment extends Fragment {
 
     private int theme_index;
-
-    ScreenSlidePageFragment(int page){
+     ScreenSlidePageFragment(int page){
         theme_index = page;
     }
 
     @Override
     public ViewGroup onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         int layout;
         switch(theme_index) {
             case 0:

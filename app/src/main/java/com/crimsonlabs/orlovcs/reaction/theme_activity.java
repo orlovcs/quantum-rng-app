@@ -9,6 +9,7 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.anjlab.android.iab.v3.BillingProcessor;
@@ -30,6 +31,8 @@ import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 
 public class theme_activity extends MainActivity {
 
+
+     TextView themeinfo;
 
     /**
      * The number of pages (wizard steps) to show in this demo.
@@ -145,6 +148,8 @@ public class theme_activity extends MainActivity {
         setContentView(R.layout.themes_layout);
         // Instantiate a ViewPager and a PagerAdapter.
         mPager = (ViewPager) findViewById(R.id.themePager);
+        themeinfo = (TextView) findViewById(R.id.textView26);
+
         mPager.setPageTransformer(true, new ZoomOutPageTransformer());
         pagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager());
         mPager.setAdapter(pagerAdapter);
@@ -153,6 +158,11 @@ public class theme_activity extends MainActivity {
         mPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             public void onPageScrollStateChanged(int state) {}
             public void onPageScrolled(final int position, float positionOffset, int positionOffsetPixels) {
+                if (position == 0){
+                    themeinfo.setText("Original");
+                }else if (position == 1){
+                    themeinfo.setText("Mono");
+                }
                 boolean isThemeAvailable = PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).getBoolean("theme_"+position, false);
                 if(isThemeAvailable){
                     selectThemeButton.setText(theme_available);

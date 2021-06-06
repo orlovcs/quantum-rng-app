@@ -305,7 +305,20 @@ public class lottery_activity extends MainActivity implements OnItemClickListene
                     bonusMax = 0;
                     bonus = false;
                     break;
-
+                case 16://TattsLotto
+                    max = 45;
+                    digits = 6;
+                    bonuses = 0;
+                    bonusMax = 0;
+                    bonus = false;
+                    break;
+                case 17://645 korea
+                    max = 45;
+                    digits = 6;
+                    bonuses = 0;
+                    bonusMax = 0;
+                    bonus = false;
+                    break;
                 default:
                     max = 49;
                     digits = 6;
